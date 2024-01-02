@@ -1,6 +1,7 @@
 package org.care.packie.ui.theme
 
 import android.app.Activity
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
@@ -9,10 +10,13 @@ import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalView
+import androidx.compose.ui.res.painterResource
 import androidx.core.view.WindowCompat
-import org.care.packie.Greeting
+import org.care.packie.R
 
 private val LocalColors = staticCompositionLocalOf {
     packieDefaultColorScheme()
@@ -58,9 +62,18 @@ fun PackieTheme(
     ) {
         Surface(
             modifier = Modifier.fillMaxSize()
-        )
-        {
-            content()
+        ) {
+            Box(
+                modifier = with(Modifier) {
+                    fillMaxSize()
+                        .paint(
+                            painter = painterResource(id = R.drawable.background),
+                            contentScale = ContentScale.FillBounds
+                        )
+                }
+            ) {
+                content()
+            }
         }
     }
 }
