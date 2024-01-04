@@ -23,6 +23,11 @@ fun packieTypography() = PackieTypography(
     ),
     subTitle = TextStyle(
         fontFamily = NotoSansKrMedium,
+        fontSize = 16.sp,
+        fontWeight = FontWeight.Normal
+    ),
+    content = TextStyle(
+        fontFamily = NotoSansKrMedium,
         fontSize = 14.sp,
         fontWeight = FontWeight.Normal
     ),
@@ -37,5 +42,6 @@ fun packieTypography() = PackieTypography(
 data class PackieTypography internal constructor(
     val title: TextStyle,
     val subTitle: TextStyle,
+    val content: TextStyle,
     val body: TextStyle
 )
