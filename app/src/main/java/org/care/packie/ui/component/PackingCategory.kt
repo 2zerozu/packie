@@ -1,0 +1,56 @@
+package org.care.packie.ui.component
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Icon
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import org.care.packie.R
+import org.care.packie.ui.theme.PackieDesignSystem
+
+@Composable
+fun PackingCategory(
+    category: String
+) {
+    Row(
+        Modifier
+            .background(
+                PackieDesignSystem.colors.backgroundBlackAlpha50,
+                shape = RoundedCornerShape(size = 8.dp),
+            )
+            .fillMaxWidth()
+            .padding(start = 32.dp, top = 30.dp, bottom = 30.dp, end = 8.dp),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        Text(
+            text = category,
+            style = PackieDesignSystem.typography.subTitle,
+            color = PackieDesignSystem.colors.white
+        )
+        Box {
+            Icon(
+                painter = painterResource(id = R.drawable.ic_packing_recorder),
+                contentDescription = null,
+                tint = PackieDesignSystem.colors.white,
+                modifier = Modifier.padding(16.dp)
+            )
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun PackingPreview() {
+    PackingCategory("출근")
+}
