@@ -51,6 +51,6 @@ fun PackingCategory(
 
 @Preview(showBackground = true)
 @Composable
-fun PackingPreview() {
+fun PackingCategoryPreview() {
     PackingCategory("출근")
 }
