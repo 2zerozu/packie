@@ -57,7 +57,7 @@ fun AddDialog(
                 .fillMaxWidth(0.8f)
                 .clip(RoundedCornerShape(size = 8.dp))
                 .background(color = PackieDesignSystem.colors.white)
-                .padding(16.dp)
+                .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 8.dp)
         ) {
             Column(
                 modifier = Modifier.align(Alignment.Center)
