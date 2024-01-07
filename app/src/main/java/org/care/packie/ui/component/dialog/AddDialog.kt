@@ -1,4 +1,4 @@
-package org.care.packie.ui.component
+package org.care.packie.ui.component.dialog
 
 import android.util.Log
 import androidx.compose.foundation.background
