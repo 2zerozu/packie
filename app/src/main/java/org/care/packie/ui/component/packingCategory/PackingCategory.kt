@@ -12,6 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -24,10 +25,8 @@ fun PackingCategory(
 ) {
     Row(
         Modifier
-            .background(
-                PackieDesignSystem.colors.backgroundBlackAlpha50,
-                shape = RoundedCornerShape(size = 8.dp),
-            )
+            .clip(RoundedCornerShape(size = 8.dp))
+            .background(color = PackieDesignSystem.colors.backgroundBlackAlpha50)
             .fillMaxWidth()
             .padding(vertical = 30.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
