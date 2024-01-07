@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
@@ -30,6 +29,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
@@ -37,6 +37,7 @@ import androidx.compose.ui.unit.dp
 import org.care.packie.R
 import org.care.packie.ui.AddDialogType
 import org.care.packie.ui.theme.PackieDesignSystem
+import org.care.packie.ui.theme.PackieTheme
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
@@ -63,10 +64,8 @@ fun AddDialog(
             ) {
                 Text(
                     text = type.title,
-                    style = PackieDesignSystem.typography.subTitle
+                    style = PackieDesignSystem.typography.title
                 )
-
-                Spacer(modifier = Modifier.height(4.dp))
 
                 BasicTextField(
                     value = textFieldValue,
@@ -83,7 +82,7 @@ fun AddDialog(
                         }
                     ),
                     cursorBrush = SolidColor(PackieDesignSystem.colors.purple),
-                    textStyle = PackieDesignSystem.typography.content.copy(color = Color.Black),
+                    textStyle = PackieDesignSystem.typography.subTitle,
                     decorationBox = { innerTextField ->
                         Box(
                             modifier = Modifier
@@ -94,7 +93,8 @@ fun AddDialog(
                             if (textFieldValue.text.isEmpty()) {
                                 Text(
                                     text = stringResource(id = R.string.add_dialog_max_length_hint),
-                                    style = PackieDesignSystem.typography.content.copy(color = Color.Gray)
+                                    style = PackieDesignSystem.typography.subTitle,
+                                    color = PackieDesignSystem.colors.grayContent
                                 )
                             }
                             innerTextField()
@@ -111,7 +111,7 @@ fun AddDialog(
                         .fillMaxWidth()
                         .offset(y = 6.dp)
                         .height(1.dp)
-                        .background(PackieDesignSystem.colors.grayLine)
+                        .background(PackieDesignSystem.colors.grayContent)
                 )
 
                 Text(
@@ -123,10 +123,9 @@ fun AddDialog(
                     modifier = Modifier
                         .align(Alignment.End)
                         .offset(y = 6.dp),
-                    color = PackieDesignSystem.colors.grayLine
+                    color = PackieDesignSystem.colors.grayContent,
+                    style = PackieDesignSystem.typography.body
                 )
-
-                Spacer(modifier = Modifier.height(16.dp))
 
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -141,8 +140,9 @@ fun AddDialog(
                     ) {
                         Text(
                             text = stringResource(id = R.string.add_dialog_dismiss),
-                            style = PackieDesignSystem.typography.body,
-                            color = PackieDesignSystem.colors.grayCancel
+                            style = PackieDesignSystem.typography.subTitle,
+                            color = PackieDesignSystem.colors.grayCancel,
+                            fontWeight = FontWeight.Bold
                         )
                     }
 
@@ -154,8 +154,9 @@ fun AddDialog(
                     ) {
                         Text(
                             text = stringResource(id = R.string.add_dialog_confirm),
-                            style = PackieDesignSystem.typography.body,
-                            color = PackieDesignSystem.colors.purple
+                            style = PackieDesignSystem.typography.subTitle,
+                            color = PackieDesignSystem.colors.purple,
+                            fontWeight = FontWeight.Bold
                         )
                     }
                 }
@@ -168,10 +169,12 @@ fun AddDialog(
 @Preview(widthDp = 360)
 @Composable
 fun AddDialogPreview() {
-    AddDialog(
-        type = AddDialogType.PACKING_CATEGORY,
-        onConfirmation = { textValue ->
-            Log.d("asdf", textValue)
-        }
-    )
+    PackieTheme {
+        AddDialog(
+            type = AddDialogType.PACKING_CATEGORY,
+            onConfirmation = { textValue ->
+                Log.d("asdf", textValue)
+            }
+        )
+    }
 }
