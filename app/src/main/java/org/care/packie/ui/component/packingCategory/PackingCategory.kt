@@ -29,16 +29,19 @@ fun PackingCategory(
                 shape = RoundedCornerShape(size = 8.dp),
             )
             .fillMaxWidth()
-            .padding(start = 32.dp, top = 30.dp, bottom = 30.dp, end = 8.dp),
+            .padding(vertical = 30.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
             text = category,
             style = PackieDesignSystem.typography.subTitle,
-            color = PackieDesignSystem.colors.white
+            color = PackieDesignSystem.colors.white,
+            modifier = Modifier.padding(start = 32.dp)
         )
-        Box {
+        Box(
+            modifier = Modifier.padding(end = 8.dp)
+        ) {
             Icon(
                 painter = painterResource(id = R.drawable.ic_packing_recorder),
                 contentDescription = null,
