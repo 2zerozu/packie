@@ -1,34 +1,41 @@
 package org.care.packie.ui.theme
 
-import androidx.compose.material3.Typography
+import androidx.compose.runtime.Immutable
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import org.care.packie.R
 
-// Set of Material typography styles to start with
-val Typography = Typography(
-    bodyLarge = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
-        fontSize = 16.sp,
-        lineHeight = 24.sp,
-        letterSpacing = 0.5.sp
-    )
-    /* Other default text styles to override
-    titleLarge = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Normal,
-        fontSize = 22.sp,
-        lineHeight = 28.sp,
-        letterSpacing = 0.sp
+val NotoSansKrBlack = FontFamily(Font(R.font.notosanskr_black, FontWeight.Black))
+val NotoSansKrBold = FontFamily(Font(R.font.notosanskr_bold, FontWeight.Bold))
+val NotoSansKrLight = FontFamily(Font(R.font.notosanskr_light, FontWeight.Light))
+val NotoSansKrMedium = FontFamily(Font(R.font.notosanskr_medium, FontWeight.Medium))
+val NotoSansKrRegular = FontFamily(Font(R.font.notosanskr_regular, FontWeight.Normal))
+val NotoSansKrThin = FontFamily(Font(R.font.notosanskr_thin, FontWeight.Thin))
+
+fun packieTypography() = PackieTypography(
+    title = TextStyle(
+        fontFamily = NotoSansKrMedium,
+        fontSize = 20.sp,
+        fontWeight = FontWeight.Normal
     ),
-    labelSmall = TextStyle(
-        fontFamily = FontFamily.Default,
-        fontWeight = FontWeight.Medium,
-        fontSize = 11.sp,
-        lineHeight = 16.sp,
-        letterSpacing = 0.5.sp
+    subTitle = TextStyle(
+        fontFamily = NotoSansKrMedium,
+        fontSize = 14.sp,
+        fontWeight = FontWeight.Normal
+    ),
+    body = TextStyle(
+        fontFamily = NotoSansKrMedium,
+        fontSize = 12.sp,
+        fontWeight = FontWeight.Normal
     )
-    */
+)
+
+@Immutable
+data class PackieTypography internal constructor(
+    val title: TextStyle,
+    val subTitle: TextStyle,
+    val body: TextStyle
 )
