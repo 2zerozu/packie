@@ -1,14 +1,18 @@
 package org.care.packie.ui.theme
 
 import android.app.Activity
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.ReadOnlyComposable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.staticCompositionLocalOf
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
+import org.care.packie.Greeting
 
 private val LocalColors = staticCompositionLocalOf {
     packieDefaultColorScheme()
@@ -19,12 +23,12 @@ private val LocalTypography = staticCompositionLocalOf {
 }
 
 object PackieDesignSystem {
-    val colors : PackieColorScheme
+    val colors: PackieColorScheme
         @Composable
         @ReadOnlyComposable
         get() = LocalColors.current
 
-    val typography : PackieTypography
+    val typography: PackieTypography
         @Composable
         @ReadOnlyComposable
         get() = LocalTypography.current
@@ -52,6 +56,11 @@ fun PackieTheme(
         LocalColors provides colorScheme,
         LocalTypography provides typography
     ) {
-        content()
+        Surface(
+            modifier = Modifier.fillMaxSize()
+        )
+        {
+            content()
+        }
     }
 }
