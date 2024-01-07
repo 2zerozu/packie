@@ -1,4 +1,4 @@
-package org.care.packie.ui.component
+package org.care.packie.ui.component.packingCategory
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
