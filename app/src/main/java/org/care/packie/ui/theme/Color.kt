@@ -20,7 +20,7 @@ val White = Color(0xFFFFFFFF)
 val GreenCheck = Color(0xFF24FF00)
 val StatusBarBlue = Color(0xFF6A7AAE)
 val GrayCancel = Color(0xFF8C8C8C)
-val GrayLine = Color(0xFF939393)
+val GrayContent = Color(0xFF939393)
 val Purple = Color(0xFF8480FF)
 
 @Stable
@@ -30,7 +30,7 @@ class PackieColorScheme(
     greenCheck: Color,
     statusBarBlue: Color,
     grayCancel: Color,
-    grayLine: Color,
+    grayContent: Color,
     purple: Color
 ) {
     var backgroundBlackAlpha50 by mutableStateOf(backgroundBlackAlpha50, structuralEqualityPolicy())
@@ -46,7 +46,7 @@ class PackieColorScheme(
     var grayCancel by mutableStateOf(grayCancel, structuralEqualityPolicy())
         internal set
 
-    var grayLine by mutableStateOf(grayLine, structuralEqualityPolicy())
+    var grayContent by mutableStateOf(grayContent, structuralEqualityPolicy())
         internal set
 
     var purple by mutableStateOf(purple, structuralEqualityPolicy())
@@ -57,7 +57,7 @@ class PackieColorScheme(
         white: Color,
         greenCheck: Color,
         grayCancel: Color,
-        grayLine: Color,
+        grayContent: Color,
         purple: Color
     ) = PackieColorScheme(
         backgroundBlackAlpha50 = backgroundBlackAlpha50,
@@ -65,7 +65,7 @@ class PackieColorScheme(
         greenCheck = greenCheck,
         statusBarBlue = statusBarBlue,
         grayCancel = grayCancel,
-        grayLine = grayLine,
+        grayContent = grayContent,
         purple = purple
     )
 
@@ -77,6 +77,6 @@ fun packieDefaultColorScheme() = PackieColorScheme(
     greenCheck = GreenCheck,
     statusBarBlue = StatusBarBlue,
     grayCancel = GrayCancel,
-    grayLine = GrayLine,
+    grayContent = GrayContent,
     purple = Purple
 )
