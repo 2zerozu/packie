@@ -19,13 +19,19 @@ val BackgroundBlackAlpha50 = Color(0x80191C1B)
 val White = Color(0xFFFFFFFF)
 val GreenCheck = Color(0xFF24FF00)
 val StatusBarBlue = Color(0xFF6A7AAE)
+val GrayCancel = Color(0xFF8C8C8C)
+val GrayLine = Color(0xFF939393)
+val Purple = Color(0xFF8480FF)
 
 @Stable
 class PackieColorScheme(
     backgroundBlackAlpha50: Color,
     white: Color,
     greenCheck: Color,
-    statusBarBlue: Color
+    statusBarBlue: Color,
+    grayCancel: Color,
+    grayLine: Color,
+    purple: Color
 ) {
     var backgroundBlackAlpha50 by mutableStateOf(backgroundBlackAlpha50, structuralEqualityPolicy())
         internal set
@@ -37,15 +43,30 @@ class PackieColorScheme(
     var statusBarBlue by mutableStateOf(statusBarBlue, structuralEqualityPolicy())
         internal set
 
+    var grayCancel by mutableStateOf(grayCancel, structuralEqualityPolicy())
+        internal set
+
+    var grayLine by mutableStateOf(grayLine, structuralEqualityPolicy())
+        internal set
+
+    var purple by mutableStateOf(purple, structuralEqualityPolicy())
+        internal set
+
     fun copy(
         backgroundBlackAlpha50: Color,
         white: Color,
-        greenCheck: Color
+        greenCheck: Color,
+        grayCancel: Color,
+        grayLine: Color,
+        purple: Color
     ) = PackieColorScheme(
         backgroundBlackAlpha50 = backgroundBlackAlpha50,
         white = white,
         greenCheck = greenCheck,
-        statusBarBlue = statusBarBlue
+        statusBarBlue = statusBarBlue,
+        grayCancel = grayCancel,
+        grayLine = grayLine,
+        purple = purple
     )
 
 }
@@ -54,5 +75,8 @@ fun packieDefaultColorScheme() = PackieColorScheme(
     backgroundBlackAlpha50 = BackgroundBlackAlpha50,
     white = White,
     greenCheck = GreenCheck,
-    statusBarBlue = StatusBarBlue
+    statusBarBlue = StatusBarBlue,
+    grayCancel = GrayCancel,
+    grayLine = GrayLine,
+    purple = Purple
 )
