@@ -10,9 +10,9 @@ import org.care.packie.ui.theme.PackieDesignSystem
 
 @Composable
 fun StuffLabel(
-    name: String
+    label: String
 ) = Text(
-    text = StuffName(name).limitMaxLength(StuffName.LIMITE_LENGHT),
+    text = StuffName(label).limitMaxLength(StuffName.LIMITE_LENGHT),
     style = PackieDesignSystem.typography.content,
     color = PackieDesignSystem.colors.white,
     maxLines = 1,
@@ -23,7 +23,7 @@ fun StuffLabel(
 @Composable
 private fun StuffItemContentPreview() {
     Column {
-        StuffLabel(name = "hello")
-        StuffLabel(name = "일이삼사오육칠팔구")
+        StuffLabel(label = "hello")
+        StuffLabel(label = "일이삼사오육칠팔구")
     }
 }

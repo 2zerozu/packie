@@ -15,6 +15,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
@@ -33,7 +34,7 @@ fun ToggleableStuff(
 ) {
     var isCheck by remember { mutableStateOf(isChecked) }
 
-    Row(
+    StuffRow(
         modifier = modifier
             .fillMaxWidth()
             .bounceClickable {
@@ -46,14 +47,15 @@ fun ToggleableStuff(
                 color = PackieDesignSystem.colors.backgroundBlackAlpha50,
             )
             .padding(
-                horizontal = 10.dp, vertical = 16.dp
+                horizontal = 10.dp
             ),
+        verticalAlignment = Alignment.CenterVertically
     ) {
         AnimatedContent(targetState = isCheck, label = "") {
             CheckIconOf(isChecked = it)
         }
         Spacer(modifier = Modifier.size(4.dp))
-        StuffLabel(name = itemName)
+        StuffLabel(label = itemName)
     }
 }
 
