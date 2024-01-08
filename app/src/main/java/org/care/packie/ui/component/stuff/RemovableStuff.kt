@@ -3,7 +3,6 @@ package org.care.packie.ui.component.stuff
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -25,7 +24,7 @@ fun RemovableStuffItem(
     content: String,
     onRemoveClick: (String) -> Unit = {}
 ) {
-    Row(
+    StuffRow(
         modifier = modifier
             .fillMaxWidth()
             .clip(RoundedCornerShape(8.dp))
@@ -33,7 +32,7 @@ fun RemovableStuffItem(
                 color = PackieDesignSystem.colors.backgroundBlackAlpha50,
             )
             .padding(
-                start = 16.dp, end = 10.dp, top = 16.dp, bottom = 16.dp
+                horizontal = 16.dp
             ),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceBetween
