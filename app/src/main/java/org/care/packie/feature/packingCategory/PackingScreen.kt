@@ -37,7 +37,13 @@ fun PackingScreen(
             state = state,
             scrollStrategy = ScrollStrategy.ExitUntilCollapsed,
             toolbar = {
-                val fontSize = (15 + (20 - 15) * state.toolbarState.progress).sp
+                val contentFontSize = PackieDesignSystem.typography.content.fontSize.value
+                val titleFontSize = PackieDesignSystem.typography.title.fontSize.value
+                val toolbarStateProgress = state.toolbarState.progress
+
+                val fontSize =
+                    (contentFontSize + (titleFontSize - contentFontSize) * toolbarStateProgress).sp
+
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -74,7 +80,6 @@ fun PackingScreen(
             Text(text = stringResource(id = R.string.packing_category_button))
         }
     }
-
 }
 
 @Preview(showBackground = true)
