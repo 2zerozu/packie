@@ -70,9 +70,10 @@ fun AddDialog(
                     }
                 )
                 AddDialogActionButtons(
-                    textFieldValue = textFieldValue,
                     onDismiss = { isDialogOpen = false },
-                    onConfirmation = onConfirmation
+                    onConfirmation = {
+                        onConfirmation(textFieldValue.text)
+                    }
                 )
             }
         }
@@ -147,9 +148,8 @@ fun AddDialogTextField(
 
 @Composable
 fun AddDialogActionButtons(
-    textFieldValue: TextFieldValue,
     onDismiss: () -> Unit,
-    onConfirmation: (String) -> Unit
+    onConfirmation: () -> Unit
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
@@ -159,7 +159,6 @@ fun AddDialogActionButtons(
             onDismiss = onDismiss
         )
         ConfirmButton(
-            textFieldValue = textFieldValue,
             onConfirmation = onConfirmation
         )
     }
@@ -186,14 +185,13 @@ fun DismissButton(
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun ConfirmButton(
-    textFieldValue: TextFieldValue,
-    onConfirmation: (String) -> Unit
+    onConfirmation: () -> Unit
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
 
     TextButton(
         onClick = {
-            onConfirmation(textFieldValue.text)
+            onConfirmation()
             keyboardController?.hide()
         }
     ) {
