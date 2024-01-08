@@ -11,4 +11,9 @@
 
     <!-- packing category -->
     <string name="packing_category_title">오늘의 준비물을 선택해 주세요</string>
+
+    <!-- done dialog -->
+    <string name="done_dialog_title">외출 준비 완료!</string>
+    <string name="done_dialog_content">핸드폰은 들고계신 거 잊지 않으셨죠?\n오늘도 즐거운 하루 보내세요 :D</string>
+    <string name="done_dialog_confirm">확인</string>
 </resources>
