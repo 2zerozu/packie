@@ -2,6 +2,7 @@ package org.care.packie.feature.packingCategory
 
 import android.util.Log
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -102,7 +103,9 @@ fun PackingScreen(
         modifier = Modifier
             .fillMaxSize()
             .then(if (isDialogOpen) Modifier.background(PackieDesignSystem.colors.backgroundBlackAlpha50) else Modifier)
-            .then(if (isDialogOpen) Modifier.pointerInput(Unit) {} else Modifier),
+            .then(if (isDialogOpen) Modifier.pointerInput(Unit) {
+                detectTapGestures(onTap = { isDialogOpen = false })
+            } else Modifier),
         contentAlignment = Alignment.Center
     ) {
 
