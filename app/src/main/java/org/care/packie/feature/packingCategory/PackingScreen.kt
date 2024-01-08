@@ -1,6 +1,9 @@
 package org.care.packie.feature.packingCategory
 
 import android.util.Log
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
@@ -108,8 +111,11 @@ fun PackingScreen(
             } else Modifier),
         contentAlignment = Alignment.Center
     ) {
-
-        if (isDialogOpen) {
+        AnimatedVisibility(
+            visible = isDialogOpen,
+            enter = fadeIn(),
+            exit = fadeOut(),
+        ) {
             AddDialog(
                 type = AddDialogType.PACKING_CATEGORY,
                 onConfirmation = {
