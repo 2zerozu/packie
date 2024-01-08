@@ -39,22 +39,149 @@ import org.care.packie.ui.AddDialogType
 import org.care.packie.ui.theme.PackieDesignSystem
 import org.care.packie.ui.theme.PackieTheme
 
+private const val MAX_LENGTH = 7
+
+@Composable
+fun AddDialogTitle(
+    type: AddDialogType
+) {
+    Text(
+        text = type.title,
+        style = PackieDesignSystem.typography.title
+    )
+}
+
 @OptIn(ExperimentalComposeUiApi::class)
+@Composable
+fun AddDialogTextField(
+    textFieldValue: TextFieldValue,
+    onValueChange: (TextFieldValue) -> Unit,
+    onConfirmation: (String) -> Unit
+) {
+    val keyboardController = LocalSoftwareKeyboardController.current
+
+    BasicTextField(
+        value = textFieldValue,
+        onValueChange = {
+            if (it.text.length <= MAX_LENGTH) {
+                onValueChange(it)
+            }
+        },
+        keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
+        keyboardActions = KeyboardActions(
+            onDone = {
+                onConfirmation(textFieldValue.text)
+                keyboardController?.hide()
+            }
+        ),
+        cursorBrush = SolidColor(PackieDesignSystem.colors.purple),
+        textStyle = PackieDesignSystem.typography.subTitle,
+        decorationBox = { innerTextField ->
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .background(color = Color.Transparent)
+                    .padding(horizontal = 8.dp)
+            ) {
+                if (textFieldValue.text.isEmpty()) {
+                    Text(
+                        text = stringResource(id = R.string.add_dialog_max_length_hint),
+                        style = PackieDesignSystem.typography.subTitle,
+                        color = PackieDesignSystem.colors.grayContent
+                    )
+                }
+                innerTextField()
+            }
+        },
+        singleLine = true,
+        modifier = Modifier
+            .fillMaxWidth()
+            .offset(y = 6.dp)
+    )
+
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .offset(y = 6.dp)
+            .height(1.dp)
+            .background(PackieDesignSystem.colors.grayContent)
+    )
+}
+
+@Composable
+fun DismissButton(
+    onDismiss: () -> Unit
+) {
+    TextButton(
+        onClick = {
+            onDismiss()
+        }
+    ) {
+        Text(
+            text = stringResource(id = R.string.add_dialog_dismiss),
+            style = PackieDesignSystem.typography.subTitle,
+            color = PackieDesignSystem.colors.grayCancel,
+            fontWeight = FontWeight.Bold
+        )
+    }
+}
+
+@OptIn(ExperimentalComposeUiApi::class)
+@Composable
+fun ConfirmButton(
+    textFieldValue: TextFieldValue,
+    onConfirmation: (String) -> Unit
+) {
+    val keyboardController = LocalSoftwareKeyboardController.current
+
+    TextButton(
+        onClick = {
+            onConfirmation(textFieldValue.text)
+            keyboardController?.hide()
+        }
+    ) {
+        Text(
+            text = stringResource(id = R.string.add_dialog_confirm),
+            style = PackieDesignSystem.typography.subTitle,
+            color = PackieDesignSystem.colors.purple,
+            fontWeight = FontWeight.Bold
+        )
+    }
+}
+
+@Composable
+fun AddDialogActionButtons(
+    textFieldValue: TextFieldValue,
+    onDismiss: () -> Unit,
+    onConfirmation: (String) -> Unit
+) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.End
+    ) {
+        DismissButton(
+            onDismiss = onDismiss
+        )
+        ConfirmButton(
+            textFieldValue = textFieldValue,
+            onConfirmation = onConfirmation
+        )
+    }
+}
+
+
 @Composable
 fun AddDialog(
     type: AddDialogType,
     onConfirmation: (String) -> Unit,
 ) {
-    val keyboardController = LocalSoftwareKeyboardController.current
-
     var textFieldValue by remember { mutableStateOf(TextFieldValue("")) }
-    val maxLength = 7
-    var openDialog by remember { mutableStateOf(true) }
+    var isDialogOpen by remember { mutableStateOf(true) }
 
-    if (openDialog) {
+    if (isDialogOpen) {
         Box(
             modifier = Modifier
-                .fillMaxWidth(0.8f)
+                .fillMaxWidth(fraction = 0.8f)
                 .clip(RoundedCornerShape(size = 8.dp))
                 .background(color = PackieDesignSystem.colors.white)
                 .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 8.dp)
@@ -62,109 +189,24 @@ fun AddDialog(
             Column(
                 modifier = Modifier.align(Alignment.Center)
             ) {
-                Text(
-                    text = type.title,
-                    style = PackieDesignSystem.typography.title
-                )
-
-                BasicTextField(
-                    value = textFieldValue,
-                    onValueChange = {
-                        if (it.text.length <= maxLength) {
-                            textFieldValue = it
-                        }
-                    },
-                    keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
-                    keyboardActions = KeyboardActions(
-                        onDone = {
-                            onConfirmation(textFieldValue.text)
-                            keyboardController?.hide()
-                        }
-                    ),
-                    cursorBrush = SolidColor(PackieDesignSystem.colors.purple),
-                    textStyle = PackieDesignSystem.typography.subTitle,
-                    decorationBox = { innerTextField ->
-                        Box(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .background(color = Color.Transparent)
-                                .padding(horizontal = 8.dp)
-                        ) {
-                            if (textFieldValue.text.isEmpty()) {
-                                Text(
-                                    text = stringResource(id = R.string.add_dialog_max_length_hint),
-                                    style = PackieDesignSystem.typography.subTitle,
-                                    color = PackieDesignSystem.colors.grayContent
-                                )
-                            }
-                            innerTextField()
-                        }
-                    },
-                    singleLine = true,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .offset(y = 6.dp)
-                )
-
-                Box(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .offset(y = 6.dp)
-                        .height(1.dp)
-                        .background(PackieDesignSystem.colors.grayContent)
-                )
-
-                Text(
-                    text = stringResource(
-                        id = R.string.add_dialog_length,
-                        textFieldValue.text.length,
-                        maxLength
-                    ),
-                    modifier = Modifier
-                        .align(Alignment.End)
-                        .offset(y = 6.dp),
-                    color = PackieDesignSystem.colors.grayContent,
-                    style = PackieDesignSystem.typography.body
-                )
-
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.End
-                ) {
-
-                    TextButton(
-                        onClick = {
-                            openDialog = false
-                            keyboardController?.hide()
-                        }
-                    ) {
-                        Text(
-                            text = stringResource(id = R.string.add_dialog_dismiss),
-                            style = PackieDesignSystem.typography.subTitle,
-                            color = PackieDesignSystem.colors.grayCancel,
-                            fontWeight = FontWeight.Bold
-                        )
+                AddDialogTitle(type)
+                AddDialogTextField(
+                    textFieldValue = textFieldValue,
+                    onValueChange = { newValue -> textFieldValue = newValue },
+                    onConfirmation = { confirmedValue ->
+                        onConfirmation(confirmedValue)
+                        isDialogOpen = false
                     }
-
-                    TextButton(
-                        onClick = {
-                            onConfirmation(textFieldValue.text)
-                            keyboardController?.hide()
-                        }
-                    ) {
-                        Text(
-                            text = stringResource(id = R.string.add_dialog_confirm),
-                            style = PackieDesignSystem.typography.subTitle,
-                            color = PackieDesignSystem.colors.purple,
-                            fontWeight = FontWeight.Bold
-                        )
-                    }
-                }
+                )
+                AddDialogActionButtons(
+                    textFieldValue = textFieldValue,
+                    onDismiss = { isDialogOpen = false },
+                    onConfirmation = onConfirmation
+                )
             }
         }
     }
 }
-
 
 @Preview(widthDp = 360)
 @Composable

@@ -6,7 +6,7 @@
     <string name="add_dialog_stuff_title">무엇을 더 챙겨야 하나요?</string>
     <string name="add_dialog_max_length_hint">7자 이하로 입력해 주세요</string>
     <string name="add_dialog_length">%d / %d</string>
-    <string name="add_dialog_confirm">확인</string>
+    <string name="add_dialog_confirm">추가</string>
     <string name="add_dialog_dismiss">취소</string>
 
     <!-- packing category -->
