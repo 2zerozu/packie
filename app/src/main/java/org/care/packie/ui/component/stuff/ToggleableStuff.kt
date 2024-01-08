@@ -25,7 +25,7 @@ import org.care.packie.ui.theme.PackieDesignSystem
 import org.care.packie.utils.ui.bounceClickable
 
 @Composable
-fun StuffToggleItem(
+fun ToggleableStuff(
     modifier: Modifier = Modifier,
     isChecked: Boolean = false,
     onToggle: (Boolean)-> Unit = {},
@@ -53,7 +53,7 @@ fun StuffToggleItem(
             CheckIconOf(isChecked = it)
         }
         Spacer(modifier = Modifier.size(4.dp))
-        StuffItemContent(name = itemName)
+        StuffLabel(name = itemName)
     }
 }
 
@@ -75,11 +75,11 @@ fun CheckIconOf(isChecked: Boolean) = if (isChecked) {
 @Preview(showBackground = true)
 @Composable
 fun StuffToggleItemEnablePreview() {
-    StuffToggleItem(itemName = "휴대폰", isChecked = true)
+    ToggleableStuff(itemName = "휴대폰", isChecked = true)
 }
 
 @Preview(showBackground = true)
 @Composable
 fun StuffToggleItemDisablePreview() {
-    StuffToggleItem(itemName = "hello", isChecked = false)
+    ToggleableStuff(itemName = "hello", isChecked = false)
 }

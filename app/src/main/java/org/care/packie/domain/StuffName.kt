@@ -1,6 +1,6 @@
 package org.care.packie.domain
 
-data class StuffItemName(private val name: String) {
+data class StuffName(private val name: String) {
     fun limitMaxLength(limit: Int, overflowToken: String = OVERFLOW_ELLIPSIS): String {
         return if (name.length > limit) {
             "${name.substring(0 until limit)}${overflowToken}"
