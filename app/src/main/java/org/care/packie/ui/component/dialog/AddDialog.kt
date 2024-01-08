@@ -42,6 +42,44 @@ import org.care.packie.ui.theme.PackieTheme
 private const val MAX_LENGTH = 7
 
 @Composable
+fun AddDialog(
+    type: AddDialogType,
+    onConfirmation: (String) -> Unit,
+) {
+    var textFieldValue by remember { mutableStateOf(TextFieldValue("")) }
+    var isDialogOpen by remember { mutableStateOf(true) }
+
+    if (isDialogOpen) {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth(fraction = 0.8f)
+                .clip(RoundedCornerShape(size = 8.dp))
+                .background(color = PackieDesignSystem.colors.white)
+                .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 8.dp)
+        ) {
+            Column(
+                modifier = Modifier.align(Alignment.Center)
+            ) {
+                AddDialogTitle(type)
+                AddDialogTextField(
+                    textFieldValue = textFieldValue,
+                    onValueChange = { newValue -> textFieldValue = newValue },
+                    onConfirmation = { confirmedValue ->
+                        onConfirmation(confirmedValue)
+                        isDialogOpen = false
+                    }
+                )
+                AddDialogActionButtons(
+                    textFieldValue = textFieldValue,
+                    onDismiss = { isDialogOpen = false },
+                    onConfirmation = onConfirmation
+                )
+            }
+        }
+    }
+}
+
+@Composable
 fun AddDialogTitle(
     type: AddDialogType
 ) {
@@ -109,6 +147,26 @@ fun AddDialogTextField(
 }
 
 @Composable
+fun AddDialogActionButtons(
+    textFieldValue: TextFieldValue,
+    onDismiss: () -> Unit,
+    onConfirmation: (String) -> Unit
+) {
+    Row(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.End
+    ) {
+        DismissButton(
+            onDismiss = onDismiss
+        )
+        ConfirmButton(
+            textFieldValue = textFieldValue,
+            onConfirmation = onConfirmation
+        )
+    }
+}
+
+@Composable
 fun DismissButton(
     onDismiss: () -> Unit
 ) {
@@ -146,65 +204,6 @@ fun ConfirmButton(
             color = PackieDesignSystem.colors.purple,
             fontWeight = FontWeight.Bold
         )
-    }
-}
-
-@Composable
-fun AddDialogActionButtons(
-    textFieldValue: TextFieldValue,
-    onDismiss: () -> Unit,
-    onConfirmation: (String) -> Unit
-) {
-    Row(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.End
-    ) {
-        DismissButton(
-            onDismiss = onDismiss
-        )
-        ConfirmButton(
-            textFieldValue = textFieldValue,
-            onConfirmation = onConfirmation
-        )
-    }
-}
-
-
-@Composable
-fun AddDialog(
-    type: AddDialogType,
-    onConfirmation: (String) -> Unit,
-) {
-    var textFieldValue by remember { mutableStateOf(TextFieldValue("")) }
-    var isDialogOpen by remember { mutableStateOf(true) }
-
-    if (isDialogOpen) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth(fraction = 0.8f)
-                .clip(RoundedCornerShape(size = 8.dp))
-                .background(color = PackieDesignSystem.colors.white)
-                .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 8.dp)
-        ) {
-            Column(
-                modifier = Modifier.align(Alignment.Center)
-            ) {
-                AddDialogTitle(type)
-                AddDialogTextField(
-                    textFieldValue = textFieldValue,
-                    onValueChange = { newValue -> textFieldValue = newValue },
-                    onConfirmation = { confirmedValue ->
-                        onConfirmation(confirmedValue)
-                        isDialogOpen = false
-                    }
-                )
-                AddDialogActionButtons(
-                    textFieldValue = textFieldValue,
-                    onDismiss = { isDialogOpen = false },
-                    onConfirmation = onConfirmation
-                )
-            }
-        }
     }
 }
 
