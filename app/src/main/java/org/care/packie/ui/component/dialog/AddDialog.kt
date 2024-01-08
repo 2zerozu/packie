@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -41,41 +42,46 @@ import org.care.packie.ui.theme.PackieTheme
 
 private const val MAX_LENGTH = 7
 
+/** TextField empty 처리 어케 할지 고민해보기 */
 @Composable
 fun AddDialog(
     type: AddDialogType,
     onConfirmation: (String) -> Unit,
+    onDismiss: () -> Unit
 ) {
     var textFieldValue by remember { mutableStateOf(TextFieldValue("")) }
-    var isDialogOpen by remember { mutableStateOf(true) }
 
-    if (isDialogOpen) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth(fraction = 0.8f)
-                .clip(RoundedCornerShape(size = 8.dp))
-                .background(color = PackieDesignSystem.colors.white)
-                .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 8.dp)
+    Box(
+        modifier = Modifier
+            .fillMaxWidth(fraction = 0.8f)
+            .clip(RoundedCornerShape(size = 8.dp))
+            .background(color = PackieDesignSystem.colors.white)
+            .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 8.dp)
+            .imePadding()
+    ) {
+        Column(
+            modifier = Modifier.align(Alignment.Center)
         ) {
-            Column(
-                modifier = Modifier.align(Alignment.Center)
-            ) {
-                AddDialogTitle(type)
-                AddDialogTextField(
-                    textFieldValue = textFieldValue,
-                    onValueChange = { newValue -> textFieldValue = newValue },
-                    onConfirmation = { confirmedValue ->
-                        onConfirmation(confirmedValue)
-                        isDialogOpen = false
-                    }
-                )
-                AddDialogActionButtons(
-                    onDismiss = { isDialogOpen = false },
-                    onConfirmation = {
-                        onConfirmation(textFieldValue.text)
-                    }
-                )
-            }
+            AddDialogTitle(type)
+            AddDialogTextField(
+                textFieldValue = textFieldValue,
+                onValueChange = { newValue -> textFieldValue = newValue },
+                onConfirmation = { confirmedValue ->
+                    onConfirmation(confirmedValue)
+                }
+            )
+            AddDialogTextFieldLength(
+                textFieldValue.text.length,
+                modifier = Modifier
+                    .align(Alignment.End)
+                    .offset(y = 6.dp),
+            )
+            AddDialogActionButtons(
+                onDismiss = onDismiss,
+                onConfirmation = {
+                    onConfirmation(textFieldValue.text)
+                }
+            )
         }
     }
 }
@@ -147,6 +153,19 @@ fun AddDialogTextField(
 }
 
 @Composable
+fun AddDialogTextFieldLength(
+    length: Int,
+    modifier: Modifier
+) {
+    Text(
+        text = stringResource(id = R.string.add_dialog_length, length, MAX_LENGTH),
+        modifier = modifier,
+        color = PackieDesignSystem.colors.grayContent,
+        style = PackieDesignSystem.typography.body
+    )
+}
+
+@Composable
 fun AddDialogActionButtons(
     onDismiss: () -> Unit,
     onConfirmation: () -> Unit
@@ -212,7 +231,8 @@ fun AddDialogPreview() {
             type = AddDialogType.PACKING_CATEGORY,
             onConfirmation = { textValue ->
                 Log.d("asdf", textValue)
-            }
+            },
+            onDismiss = {}
         )
     }
 }
