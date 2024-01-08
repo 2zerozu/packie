@@ -28,9 +28,9 @@ import org.care.packie.ui.theme.PackieTheme
 
 @Composable
 fun DoneDialog() {
-    var openDialog by remember { mutableStateOf(true) }
+    var isDialogOpen by remember { mutableStateOf(true) }
 
-    if (openDialog) {
+    if (isDialogOpen) {
         Box(
             modifier = Modifier
                 .fillMaxWidth(0.8f)
@@ -49,7 +49,7 @@ fun DoneDialog() {
                     horizontalArrangement = Arrangement.End
                 ) {
                     DoneDialogConfirmButton(
-                        onConfirmation = { openDialog = false }
+                        onConfirmation = { isDialogOpen = false }
                     )
                 }
             }
