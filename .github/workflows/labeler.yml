@@ -18,9 +18,13 @@ jobs:
   label-tag:
     runs-on: ubuntu-latest
     steps:
-      - name: add label jinsu
+      - name: add label 2zerozu
         uses: actions-ecosystem/action-add-labels@v1
         if: ${{ startsWith(github.actor, '2zerozu') }}
+
+      - name: add label jinsu
+        uses: actions-ecosystem/action-add-labels@v1
+        if: ${{ startsWith(github.actor, 'jinsu4755') }}
 
       - name: add label Bug
         uses: actions-ecosystem/action-add-labels@v1
