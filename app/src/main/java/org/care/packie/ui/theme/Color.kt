@@ -21,6 +21,9 @@ val White = Color(0xFFFFFFFF)
 val ButtonWhite = Color(0xCCFFFFFF)
 val GreenCheck = Color(0xFF24FF00)
 val StatusBarBlue = Color(0xFF6A7AAE)
+val GrayCancel = Color(0xFF8C8C8C)
+val GrayContent = Color(0xFF939393)
+val Purple = Color(0xFF8480FF)
 
 @Stable
 class PackieColorScheme(
@@ -29,7 +32,10 @@ class PackieColorScheme(
     white: Color,
     buttonWhite: Color,
     greenCheck: Color,
-    statusBarBlue: Color
+    statusBarBlue: Color,
+    grayCancel: Color,
+    grayContent: Color,
+    purple: Color
 ) {
     var backgroundBlackAlpha50 by mutableStateOf(backgroundBlackAlpha50, structuralEqualityPolicy())
         internal set
@@ -45,12 +51,24 @@ class PackieColorScheme(
     var statusBarBlue by mutableStateOf(statusBarBlue, structuralEqualityPolicy())
         internal set
 
+    var grayCancel by mutableStateOf(grayCancel, structuralEqualityPolicy())
+        internal set
+
+    var grayContent by mutableStateOf(grayContent, structuralEqualityPolicy())
+        internal set
+
+    var purple by mutableStateOf(purple, structuralEqualityPolicy())
+        internal set
+
     fun copy(
         backgroundBlackAlpha50: Color,
         black: Color,
         white: Color,
-        buttonWhite: Color,
         greenCheck: Color,
+        grayCancel: Color,
+        grayContent: Color,
+        purple: Color,
+        buttonWhite: Color,
         statusBarBlue: Color
     ) = PackieColorScheme(
         backgroundBlackAlpha50 = backgroundBlackAlpha50,
@@ -58,7 +76,10 @@ class PackieColorScheme(
         white = white,
         buttonWhite = buttonWhite,
         greenCheck = greenCheck,
-        statusBarBlue = statusBarBlue
+        statusBarBlue = statusBarBlue,
+        grayCancel = grayCancel,
+        grayContent = grayContent,
+        purple = purple
     )
 
 }
@@ -69,5 +90,8 @@ fun packieDefaultColorScheme() = PackieColorScheme(
     white = White,
     buttonWhite = ButtonWhite,
     greenCheck = GreenCheck,
-    statusBarBlue = StatusBarBlue
+    statusBarBlue = StatusBarBlue,
+    grayCancel = GrayCancel,
+    grayContent = GrayContent,
+    purple = Purple
 )
