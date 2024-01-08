@@ -21,10 +21,14 @@ jobs:
       - name: add label 2zerozu
         uses: actions-ecosystem/action-add-labels@v1
         if: ${{ startsWith(github.actor, '2zerozu') }}
+        with:
+          labels: 영주
 
       - name: add label jinsu
         uses: actions-ecosystem/action-add-labels@v1
         if: ${{ startsWith(github.actor, 'jinsu4755') }}
+        with:
+          labels: 진수
 
       - name: add label Bug
         uses: actions-ecosystem/action-add-labels@v1
