@@ -98,7 +98,6 @@ fun AddDialogTextField(
             .fillMaxWidth()
             .offset(y = 6.dp)
     )
-
     Box(
         modifier = Modifier
             .fillMaxWidth()
