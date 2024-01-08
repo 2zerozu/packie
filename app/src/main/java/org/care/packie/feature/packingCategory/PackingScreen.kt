@@ -126,14 +126,3 @@ fun PackingScreenPreview() {
         PackingScreen(listOf("출근", "놀러갈 때", "여행", "출근", "놀러갈 때", "여행", "출근", "놀러갈 때"))
     }
 }
-
-//Spacer(modifier = Modifier.size(100.dp))
-//PackieButton(
-//onClick = { /*TODO*/ },
-//modifier = Modifier
-//.fillMaxWidth()
-//.padding(horizontal = 16.dp)
-//) {
-//    Text(text = stringResource(id = R.string.packing_category_button))
-//}
-//Spacer(modifier = Modifier.size(44.dp))
