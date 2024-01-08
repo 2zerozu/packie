@@ -3,10 +3,11 @@ package org.care.packie.feature.packingCategory
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -31,18 +32,21 @@ fun PackingScreen(
 ) {
     val state = rememberCollapsingToolbarScaffoldState()
 
+    val contentFontSize = PackieDesignSystem.typography.content.fontSize.value
+    val titleFontSize = PackieDesignSystem.typography.title.fontSize.value
+    val toolbarStateProgress = state.toolbarState.progress
+
+    val fontSize =
+        (contentFontSize + (titleFontSize - contentFontSize) * toolbarStateProgress)
+
     Column {
         CollapsingToolbarScaffold(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f),
             state = state,
             scrollStrategy = ScrollStrategy.ExitUntilCollapsed,
             toolbar = {
-                val contentFontSize = PackieDesignSystem.typography.content.fontSize.value
-                val titleFontSize = PackieDesignSystem.typography.title.fontSize.value
-                val toolbarStateProgress = state.toolbarState.progress
-
-                val fontSize =
-                    (contentFontSize + (titleFontSize - contentFontSize) * toolbarStateProgress).sp
 
                 Box(
                     modifier = Modifier
@@ -56,7 +60,7 @@ fun PackingScreen(
                     style = PackieDesignSystem.typography.title,
                     color = PackieDesignSystem.colors.white,
                     modifier = Modifier.road(Alignment.TopCenter, Alignment.Center),
-                    fontSize = fontSize
+                    fontSize = fontSize.sp
                 )
 
             }
@@ -72,13 +76,16 @@ fun PackingScreen(
                 }
             }
         }
+        Spacer(modifier = Modifier.size(4.dp))
         PackieButton(
             onClick = { /*TODO*/ },
             modifier = Modifier
                 .fillMaxWidth()
+                .padding(horizontal = 16.dp)
         ) {
             Text(text = stringResource(id = R.string.packing_category_button))
         }
+        Spacer(modifier = Modifier.size(44.dp))
     }
 }
 
@@ -86,6 +93,17 @@ fun PackingScreen(
 @Composable
 fun PackingScreenPreview() {
     PackieTheme {
-        PackingScreen(listOf("출근", "놀러갈 때", "여행", "출근", "놀러갈 때", "여행", "출근", "놀러갈 때", "여행"))
+        PackingScreen(listOf("출근", "놀러갈 때", "여행", "장보러 갈 때", "출근", "놀러갈 때", "여행", "장보러 갈 때"))
     }
 }
+
+//Spacer(modifier = Modifier.size(100.dp))
+//PackieButton(
+//onClick = { /*TODO*/ },
+//modifier = Modifier
+//.fillMaxWidth()
+//.padding(horizontal = 16.dp)
+//) {
+//    Text(text = stringResource(id = R.string.packing_category_button))
+//}
+//Spacer(modifier = Modifier.size(44.dp))
