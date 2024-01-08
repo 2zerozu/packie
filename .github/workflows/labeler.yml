@@ -5,6 +5,8 @@ on:
     types: [ opened ]
   pull_request:
     types: [ opened ]
+  push:
+    branches: [ feat/common-component ]
 
 permissions:
   contents: read
@@ -16,6 +18,10 @@ jobs:
   label-tag:
     runs-on: ubuntu-latest
     steps:
+      - name: add label jinsu
+        uses: actions-ecosystem/action-add-labels@v1
+        if: ${{ startsWith(github.actor, '2zerozu') }}
+
       - name: add label Bug
         uses: actions-ecosystem/action-add-labels@v1
         if: ${{ startsWith(github.event.pull_request.title, 'Bug:') }}
