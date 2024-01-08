@@ -1,4 +1,4 @@
-package org.care.packie.ui.feature.packingCategory
+package org.care.packie.feature.packingCategory
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
