@@ -41,35 +41,53 @@ fun DoneDialog() {
             Column(
                 modifier = Modifier.align(Alignment.Center)
             ) {
-                Text(
-                    text = stringResource(id = R.string.done_dialog_title),
-                    style = PackieDesignSystem.typography.title
-                )
-
-                Text(
-                    text = stringResource(id = R.string.done_dialog_content),
-                    color = PackieDesignSystem.colors.grayContent,
-                    style = PackieDesignSystem.typography.subTitle
-                )
+                DoneDialogTitle()
+                DoneDialogContent()
 
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.End
                 ) {
-
-                    TextButton(
-                        onClick = { openDialog = false }
-                    ) {
-                        Text(
-                            text = stringResource(id = R.string.done_dialog_confirm),
-                            style = PackieDesignSystem.typography.subTitle,
-                            fontWeight = FontWeight.Bold,
-                            color = PackieDesignSystem.colors.purple
-                        )
-                    }
+                    DoneDialogConfirmButton(
+                        onConfirmation = { openDialog = false }
+                    )
                 }
             }
         }
+    }
+}
+
+
+@Composable
+fun DoneDialogTitle() {
+    Text(
+        text = stringResource(id = R.string.done_dialog_title),
+        style = PackieDesignSystem.typography.title
+    )
+}
+
+@Composable
+fun DoneDialogContent() {
+    Text(
+        text = stringResource(id = R.string.done_dialog_content),
+        color = PackieDesignSystem.colors.grayContent,
+        style = PackieDesignSystem.typography.subTitle
+    )
+}
+
+@Composable
+fun DoneDialogConfirmButton(
+    onConfirmation: () -> Unit
+) {
+    TextButton(
+        onClick = { onConfirmation() }
+    ) {
+        Text(
+            text = stringResource(id = R.string.done_dialog_confirm),
+            style = PackieDesignSystem.typography.subTitle,
+            fontWeight = FontWeight.Bold,
+            color = PackieDesignSystem.colors.purple
+        )
     }
 }
 
