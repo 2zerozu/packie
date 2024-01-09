@@ -20,7 +20,9 @@
 
     <!-- stuff list -->
     <string name="stuff_item_add_button_text">추가하기</string>
-    <string name="stuffs_content_text">‘출근’에 챙길 준비물이에요</string>
+    <string name="stuffs_content_text">‘%1$s’에 챙길 준비물이에요</string>
+    <string name="stuffs_edit">수정하기</string>
+    <string name="stuffs_update">저장</string>
 
     <!-- description -->
     <string name= "cross_fade_animation">cross fade animation</string>
