@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -110,13 +109,13 @@ fun StuffsScreenTopBar(
         CrossfadeToggle(
             isEnable = isEditMode,
             enableComposable = {
-                StuffsTopBar(
-                    onCategoryClick = onCategoryClick
+                MutableStuffsTopBar(
+                    onBackClick = onBackClick
                 )
             },
             disableComposable = {
-                MutableStuffsTopBar(
-                    onBackClick = onBackClick
+                StuffsTopBar(
+                    onCategoryClick = onCategoryClick
                 )
             }
         )
