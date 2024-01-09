@@ -11,11 +11,8 @@ import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateMapOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -30,6 +27,7 @@ import org.care.packie.ui.component.stuff.MutableStuffsGrid
 import org.care.packie.ui.component.stuff.MutableStuffsTopBar
 import org.care.packie.ui.component.stuff.StuffsGrid
 import org.care.packie.ui.component.stuff.StuffsTopBar
+import org.care.packie.ui.component.stuff.rememberEditModeState
 import org.care.packie.ui.theme.PackieDesignSystem
 import org.care.packie.ui.theme.PackieTheme
 import org.care.packie.utils.ui.CrossfadeToggle
@@ -44,7 +42,7 @@ fun StuffsScreen(
 ) {
     val stuffs = remember { mutableStateMapOf<String, Boolean>().apply { putAll(defaultStuffs) } }
 
-    var isEditMode by remember { mutableStateOf(false) }
+    val editMode = rememberEditModeState()
 
     val lazyGridState = rememberLazyGridState()
 
@@ -55,30 +53,22 @@ fun StuffsScreen(
         topBar = {
             StuffsScreenTopBar(
                 category = category,
-                isEditMode = isEditMode,
+                isEditMode = editMode.isEditMode,
                 onCategoryClick = {},
-                onBackClick = { isEditMode = false }
+                onBackClick = { editMode.disableEditMode() }
             )
         },
         bottomBar = {
-            Column(modifier = Modifier.padding(horizontal = 16.dp)) {
-                Spacer(modifier = Modifier.size(4.dp))
-                PackieButton(
-                    modifier = Modifier.fillMaxWidth(),
-                    onClick = {
-                        isEditMode = !isEditMode
-                    }
-                ) {
-                    Text(
-                        text = if (isEditMode) {
-                            stringResource(id = R.string.stuffs_update)
-                        } else {
-                            stringResource(id = R.string.stuffs_edit)
-                        }
-                    )
+            StuffsStickyBottom(
+                modifier = Modifier.padding(horizontal = 16.dp),
+                isEditMode = editMode.isEditMode,
+                onClickEdit = {
+                    editMode.enableEditMode()
+                },
+                onClickUpdate = {
+                    editMode.disableEditMode()
                 }
-                Spacer(modifier = Modifier.size(68.dp))
-            }
+            )
         }
     ) {
         StuffsContent(
@@ -88,7 +78,7 @@ fun StuffsScreen(
                 top = it.calculateTopPadding(),
                 bottom = it.calculateBottomPadding()
             ),
-            isEditMode = isEditMode,
+            isEditMode = editMode.isEditMode,
             stuffs = stuffs,
             state = lazyGridState,
             onAdd = {},
@@ -166,6 +156,31 @@ fun StuffsContent(
         )
     }
 )
+
+@Composable
+fun StuffsStickyBottom(
+    modifier: Modifier = Modifier,
+    isEditMode: Boolean,
+    onClickEdit: () -> Unit = {},
+    onClickUpdate: () -> Unit = {}
+) = Column(
+    modifier = modifier
+) {
+    Spacer(modifier = Modifier.size(4.dp))
+    PackieButton(
+        modifier = Modifier.fillMaxWidth(),
+        onClick = if (isEditMode) onClickUpdate else onClickEdit
+    ) {
+        Text(
+            text = if (isEditMode) {
+                stringResource(id = R.string.stuffs_update)
+            } else {
+                stringResource(id = R.string.stuffs_edit)
+            }
+        )
+    }
+    Spacer(modifier = Modifier.size(68.dp))
+}
 
 @Preview
 @Composable
