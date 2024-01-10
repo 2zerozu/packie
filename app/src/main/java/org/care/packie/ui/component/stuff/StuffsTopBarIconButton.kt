@@ -2,8 +2,6 @@ package org.care.packie.ui.component.stuff
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
@@ -16,35 +14,30 @@ import org.care.packie.R
 import org.care.packie.ui.component.common.PackieIconButton
 
 @Composable
-fun StuffsTopBar(
+fun StuffsTopBarIconButton(
     onCategoryClick: () -> Unit = {},
 ) {
-    StuffsTopBarRow {
-        PackieIconButton(onClick = onCategoryClick) {
-            Icon(
-                painter = painterResource(id = R.drawable.menu),
-                contentDescription = null
-            )
-        }
+    PackieIconButton(onClick = onCategoryClick) {
+        Icon(
+            painter = painterResource(id = R.drawable.menu),
+            contentDescription = null
+        )
     }
 }
 
 @Composable
-fun MutableStuffsTopBar(
+fun MutableStuffsTopBarIconButton(
     onBackClick: () -> Unit = {}
 ) {
-    StuffsTopBarRow {
-        PackieIconButton(
-            modifier = Modifier.size(34.dp),
-            onClick = onBackClick
-        ) {
-            Icon(
-                painter = painterResource(id = R.drawable.arrow_back_24),
-                contentDescription = null
-            )
-        }
+    PackieIconButton(
+        modifier = Modifier.size(34.dp),
+        onClick = onBackClick
+    ) {
+        Icon(
+            painter = painterResource(id = R.drawable.arrow_back_24),
+            contentDescription = null
+        )
     }
-
 }
 
 @Composable
@@ -52,13 +45,7 @@ fun StuffsTopBarRow(
     modifier: Modifier = Modifier,
     content: @Composable RowScope.() -> Unit
 ) = Row(
-    modifier = modifier.fillMaxWidth()
-        .padding(
-            start = 16.dp,
-            end = 16.dp,
-            top = 16.dp,
-            bottom = 10.dp
-        ),
+    modifier = modifier,
     verticalAlignment = Alignment.CenterVertically,
     content = content
 )
@@ -66,11 +53,11 @@ fun StuffsTopBarRow(
 @Preview
 @Composable
 fun StuffsTopBarPreview() {
-    StuffsTopBar()
+    StuffsTopBarIconButton()
 }
 
 @Preview
 @Composable
 fun MutableStuffsTopBarPreview() {
-    MutableStuffsTopBar()
+    MutableStuffsTopBarIconButton()
 }

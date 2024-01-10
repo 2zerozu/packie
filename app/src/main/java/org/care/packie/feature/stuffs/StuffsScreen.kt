@@ -1,6 +1,8 @@
 package org.care.packie.feature.stuffs
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -8,30 +10,42 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.TopAppBarScrollBehavior
+import androidx.compose.material3.rememberTopAppBarState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.tooling.preview.PreviewParameter
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.lerp
 import org.care.packie.R
 import org.care.packie.StuffsPreviewProvider
 import org.care.packie.ui.component.common.PackieButton
 import org.care.packie.ui.component.stuff.MutableStuffsGrid
-import org.care.packie.ui.component.stuff.MutableStuffsTopBar
+import org.care.packie.ui.component.stuff.MutableStuffsTopBarIconButton
 import org.care.packie.ui.component.stuff.StuffsGrid
-import org.care.packie.ui.component.stuff.StuffsTopBar
+import org.care.packie.ui.component.stuff.StuffsTopBarIconButton
 import org.care.packie.ui.component.stuff.rememberEditModeState
 import org.care.packie.ui.theme.PackieDesignSystem
 import org.care.packie.ui.theme.PackieTheme
 import org.care.packie.utils.ui.CrossfadeToggle
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun StuffsScreen(
     category: String,
@@ -44,10 +58,12 @@ fun StuffsScreen(
 
     val editMode = rememberEditModeState()
 
-    val lazyGridState = rememberLazyGridState()
+    val scrollBehavior =
+        TopAppBarDefaults.exitUntilCollapsedScrollBehavior(rememberTopAppBarState())
 
     Scaffold(
         modifier = Modifier
+            .nestedScroll(scrollBehavior.nestedScrollConnection)
             .fillMaxSize(),
         containerColor = Color.Transparent,
         topBar = {
@@ -55,7 +71,8 @@ fun StuffsScreen(
                 category = category,
                 isEditMode = editMode.isEditMode,
                 onCategoryClick = {},
-                onBackClick = { editMode.disableEditMode() }
+                onBackClick = { editMode.disableEditMode() },
+                scrollBehavior = scrollBehavior
             )
         },
         bottomBar = {
@@ -80,7 +97,6 @@ fun StuffsScreen(
             ),
             isEditMode = editMode.isEditMode,
             stuffs = stuffs,
-            state = lazyGridState,
             onAdd = {},
             onRemove = {},
             onToggle = {}
@@ -88,34 +104,77 @@ fun StuffsScreen(
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun StuffsScreenTopBar(
     category: String,
     isEditMode: Boolean,
     onCategoryClick: () -> Unit = {},
-    onBackClick: () -> Unit = {}
+    onBackClick: () -> Unit = {},
+    scrollBehavior: TopAppBarScrollBehavior
 ) {
+    val maxSpaceSize = 20.dp
+    val pinnedSpaceSize = 0.dp
+    val maxSpacePx: Float
+    val pinnedSpacePx: Float
+    val maxFontSize = PackieDesignSystem.typography.title.fontSize
+    val pinnedFontSize = PackieDesignSystem.typography.content.fontSize
+
+    val currentSpaceSize =
+        lerp(maxSpaceSize, pinnedSpaceSize, scrollBehavior.state.collapsedFraction)
+    val currentFontSize = lerp(maxFontSize, pinnedFontSize, scrollBehavior.state.collapsedFraction)
+
+    Log.d("size", currentSpaceSize.toString())
+    Log.d("fontSize", currentFontSize.toString())
+
+    LocalDensity.current.run {
+        pinnedSpacePx = pinnedSpaceSize.toPx()
+        maxSpacePx = maxSpaceSize.toPx()
+    }
+
+    SideEffect {
+        if (scrollBehavior.state.heightOffsetLimit != pinnedSpacePx - maxSpacePx) {
+            scrollBehavior.state.heightOffsetLimit = pinnedSpacePx - maxSpacePx
+        }
+    }
+
     Column {
-        CrossfadeToggle(
-            isEnable = isEditMode,
-            enableComposable = {
-                MutableStuffsTopBar(
-                    onBackClick = onBackClick
-                )
-            },
-            disableComposable = {
-                StuffsTopBar(
-                    onCategoryClick = onCategoryClick
-                )
-            }
+        Row(
+            modifier = Modifier.padding(
+                start = 16.dp,
+                end = 16.dp,
+                top = 16.dp,
+                bottom = 10.dp
+            )
+        ) {
+            CrossfadeToggle(
+                isEnable = isEditMode,
+                enableComposable = {
+                    MutableStuffsTopBarIconButton(
+                        onBackClick = onBackClick
+                    )
+                },
+                disableComposable = {
+                    StuffsTopBarIconButton(
+                        onCategoryClick = onCategoryClick
+                    )
+                }
+            )
+        }
+        StuffsTitle(
+            category = category,
+            currentFontSize = currentFontSize,
+            currentSpaceSize = currentSpaceSize
         )
-        StuffsTitle(category)
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun StuffsTitle(
-    category: String
+    category: String,
+    currentFontSize: TextUnit,
+    currentSpaceSize: Dp
 ) {
     Text(
         modifier = Modifier.fillMaxWidth(),
@@ -123,8 +182,12 @@ fun StuffsTitle(
         style = PackieDesignSystem.typography.title,
         color = PackieDesignSystem.colors.white,
         textAlign = TextAlign.Center,
+        fontSize = currentFontSize
     )
-    Spacer(modifier = Modifier.size(20.dp))
+    Spacer(
+        modifier = Modifier
+            .size(currentSpaceSize)
+    )
 }
 
 @Composable
@@ -185,7 +248,7 @@ fun StuffsStickyBottom(
 @Preview
 @Composable
 fun StuffScreenPreview(
-    @PreviewParameter(StuffsPreviewProvider::class) stuffs: Map<String, Boolean>
+    @PreviewParameter(StuffsPreviewProvider::class) stuffs: Map<String, Boolean> = StuffsPreviewProvider().values.first()
 ) {
     PackieTheme {
         StuffsScreen(
