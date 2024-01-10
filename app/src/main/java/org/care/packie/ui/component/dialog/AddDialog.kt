@@ -51,45 +51,41 @@ fun AddDialog(
     onConfirmation: (String) -> Unit,
     onDismiss: () -> Unit
 ) {
-    var isDialogOpen by remember { mutableStateOf(true) }
+    Dialog(
+        onDismissRequest = onDismiss
+    ) {
+        var textFieldValue by remember { mutableStateOf(TextFieldValue("")) }
 
-    if (isDialogOpen) {
-        Dialog(
-            onDismissRequest = onDismiss
+        Box(
+            modifier = Modifier
+                .clip(RoundedCornerShape(size = 8.dp))
+                .background(color = PackieDesignSystem.colors.white)
+                .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 8.dp)
+                .imePadding()
         ) {
-            var textFieldValue by remember { mutableStateOf(TextFieldValue("")) }
-
-            Box(
-                modifier = Modifier
-                    .clip(RoundedCornerShape(size = 8.dp))
-                    .background(color = PackieDesignSystem.colors.white)
-                    .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 8.dp)
-                    .imePadding()
+            Column(
+                modifier = Modifier.align(Alignment.Center)
             ) {
-                Column(
-                    modifier = Modifier.align(Alignment.Center)
-                ) {
-                    AddDialogTitle(type)
-                    AddDialogTextField(
-                        textFieldValue = textFieldValue,
-                        onValueChange = { newValue -> textFieldValue = newValue },
-                        onConfirmation = { confirmedValue ->
-                            onConfirmation(confirmedValue)
-                        }
-                    )
-                    AddDialogTextFieldLength(
-                        textFieldValue.text.length,
-                        modifier = Modifier
-                            .align(Alignment.End)
-                            .offset(y = 6.dp),
-                    )
-                    AddDialogActionButtons(
-                        onDismiss = onDismiss,
-                        onConfirmation = {
-                            onConfirmation(textFieldValue.text)
-                        }
-                    )
-                }
+                AddDialogTitle(type)
+                AddDialogTextField(
+                    textFieldValue = textFieldValue,
+                    onValueChange = { newValue -> textFieldValue = newValue },
+                    onConfirmation = { confirmedValue ->
+                        onConfirmation(confirmedValue)
+                    }
+                )
+                AddDialogTextFieldLength(
+                    textFieldValue.text.length,
+                    modifier = Modifier
+                        .align(Alignment.End)
+                        .offset(y = 6.dp),
+                )
+                AddDialogActionButtons(
+                    onDismiss = onDismiss,
+                    onConfirmation = {
+                        onConfirmation(textFieldValue.text)
+                    }
+                )
             }
         }
     }
