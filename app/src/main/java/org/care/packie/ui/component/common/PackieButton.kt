@@ -1,5 +1,6 @@
 package org.care.packie.ui.component.common
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -28,7 +29,8 @@ fun PackieButton(
     modifier = modifier,
     colors = buttonColors,
     shape = shape,
-    onClick = onClick
+    onClick = onClick,
+    contentPadding = PaddingValues(vertical = 16.dp)
 ) {
     ProvideTextStyle(value = PackieDesignSystem.typography.subTitle) {
         content()

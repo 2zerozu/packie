@@ -36,7 +36,6 @@ fun ToggleableStuff(
 
     StuffRow(
         modifier = modifier
-            .fillMaxWidth()
             .bounceClickable {
                 isCheck = !isCheck
                 onToggle(isCheck)
