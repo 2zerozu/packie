@@ -31,10 +31,10 @@ import me.onebone.toolbar.CollapsingToolbarScaffold
 import me.onebone.toolbar.ScrollStrategy
 import me.onebone.toolbar.rememberCollapsingToolbarScaffoldState
 import org.care.packie.R
-import org.care.packie.ui.AddDialogType
+import org.care.packie.ui.TextFieldDialogType
 import org.care.packie.ui.component.category.Category
 import org.care.packie.ui.component.common.PackieButton
-import org.care.packie.ui.component.dialog.AddDialog
+import org.care.packie.ui.component.dialog.TextFieldDialog
 import org.care.packie.ui.theme.PackieDesignSystem
 import org.care.packie.ui.theme.PackieTheme
 
@@ -56,7 +56,11 @@ fun CategoryScreen(
         Box(modifier = Modifier.fillMaxSize()) {
             CategoryScreen(
                 categories = categories,
-                onClickAddCategory = { viewModel.addCategory(it) }
+                onClickAddCategory = { viewModel.addCategory(it) },
+                onClickEditCategory = { old, new ->
+                    viewModel.editCategory(old, new)
+                },
+                onClickDeleteCategory = { viewModel.deleteCategory(it) }
             )
         }
     }
@@ -65,11 +69,15 @@ fun CategoryScreen(
 @Composable
 fun CategoryScreen(
     categories: Set<String>,
-    onClickAddCategory: (String) -> Unit
+    onClickAddCategory: (String) -> Unit,
+    onClickEditCategory: (String, String) -> Unit,
+    onClickDeleteCategory: (String) -> Unit
 ) {
     val state = rememberCollapsingToolbarScaffoldState()
     val isCollapseEnabled = categories.size >= MIN_CATEGORY_SIZE
     val toolbarStateProgress = state.toolbarState.progress
+    var categoryName by remember { mutableStateOf("") }
+    var dialogType by remember { mutableStateOf(TextFieldDialogType.ADD_CATEGORY) }
     var isDialogOpen by remember { mutableStateOf(false) }
 
     Column {
@@ -105,13 +113,22 @@ fun CategoryScreen(
                     .padding(horizontal = 16.dp)
             ) {
                 items(categories.size) { index ->
-                    Category(category = categories.elementAt(index))
+                    val content = categories.elementAt(index)
+                    Category(
+                        category = content,
+                        onClickEdit = {
+                            isDialogOpen = true;
+                            dialogType = TextFieldDialogType.EDIT_CATEGORY;
+                            categoryName = content;
+                        },
+                        onClickDelete = { onClickDeleteCategory(content) }
+                    )
                 }
             }
         }
         Spacer(modifier = Modifier.size((MIN_SPACER_SIZE + (MAX_SPACER_SIZE - MIN_SPACER_SIZE) * toolbarStateProgress).dp))
         PackieButton(
-            onClick = { isDialogOpen = true },
+            onClick = { isDialogOpen = true; dialogType = TextFieldDialogType.ADD_CATEGORY },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp)
@@ -125,10 +142,12 @@ fun CategoryScreen(
         visible = isDialogOpen,
         enter = fadeIn()
     ) {
-        AddDialog(
-            type = AddDialogType.PACKING_CATEGORY,
+        TextFieldDialog(
+            content = categoryName,
+            type = dialogType,
             onConfirmation = {
-                onClickAddCategory(it)
+                if (dialogType == TextFieldDialogType.ADD_CATEGORY) onClickAddCategory(it)
+                else onClickEditCategory(categoryName, it)
                 isDialogOpen = false
             },
             onDismiss = { isDialogOpen = false }
@@ -140,5 +159,6 @@ fun CategoryScreen(
 @Composable
 fun CategoryScreenPreview() {
     PackieTheme {
+        //CategoryScreen(setOf("출근", "퇴근"), {})
     }
 }

@@ -30,4 +30,18 @@ class CategoryViewModel @Inject constructor(
             _categories.emit(localCategories)
         }
     }
+
+    fun editCategory(old: String, new: String) {
+        viewModelScope.launch {
+            categoryRepository.editCategory(old, new)
+            getCategories()
+        }
+    }
+
+    fun deleteCategory(category: String) {
+        viewModelScope.launch {
+            categoryRepository.deleteCategory(category)
+            getCategories()
+        }
+    }
 }

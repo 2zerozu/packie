@@ -1,13 +1,14 @@
 <resources>
     <string name="app_name">챙기미</string>
 
-    <!-- add dialog -->
-    <string name="add_dialog_packing_category_title">어떤 목록을 추가하시나요?</string>
-    <string name="add_dialog_stuff_title">무엇을 더 챙겨야 하나요?</string>
-    <string name="add_dialog_max_length_hint">7자 이하로 입력해 주세요</string>
-    <string name="add_dialog_length">%d / %d</string>
-    <string name="add_dialog_confirm">추가</string>
-    <string name="add_dialog_dismiss">취소</string>
+    <!-- text field dialog -->
+    <string name="textField_dialog_add_category_title">어떤 목록을 추가하시나요?</string>
+    <string name="textField_dialog_add_stuff_title">무엇을 더 챙겨야 하나요?</string>
+    <string name="textField_dialog_max_length_hint">7자 이하로 입력해 주세요</string>
+    <string name="textField_dialog_length">%d / %d</string>
+    <string name="textField_dialog_confirm">추가</string>
+    <string name="textField_dialog_dismiss">취소</string>
+    <string name="textField_dialog_edit">수정</string>
 
     <!-- packing category -->
     <string name="packing_category_title">오늘의 준비물을 선택해 주세요</string>

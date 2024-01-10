@@ -14,4 +14,19 @@ class CategoryRepositoryImpl @Inject constructor(
         updatedCategories.add(category)
         localCategoryDataSource.categories = updatedCategories
     }
+
+    override fun editCategory(old: String, new: String) {
+        val updatedCategories = localCategoryDataSource.categories.toMutableSet()
+        if (updatedCategories.contains(old)) {
+            updatedCategories.remove(old)
+            updatedCategories.add(new)
+            localCategoryDataSource.categories = updatedCategories
+        }
+    }
+
+    override fun deleteCategory(category: String) {
+        val updatedCategories = localCategoryDataSource.categories.toMutableSet()
+        updatedCategories.remove(category)
+        localCategoryDataSource.categories = updatedCategories
+    }
 }
