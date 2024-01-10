@@ -1,4 +1,4 @@
-package org.care.packie.feature.packingCategory
+package org.care.packie.feature.category
 
 import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
@@ -31,7 +31,7 @@ import org.care.packie.R
 import org.care.packie.ui.AddDialogType
 import org.care.packie.ui.component.common.PackieButton
 import org.care.packie.ui.component.dialog.AddDialog
-import org.care.packie.ui.component.packingCategory.PackingCategory
+import org.care.packie.ui.component.category.Category
 import org.care.packie.ui.theme.PackieDesignSystem
 import org.care.packie.ui.theme.PackieTheme
 
@@ -40,7 +40,7 @@ private const val MIN_SPACER_SIZE = 4
 private const val MAX_SPACER_SIZE = 80
 
 @Composable
-fun PackingScreen(
+fun CategoryScreen(
     categories: List<String>
 ) {
     val state = rememberCollapsingToolbarScaffoldState()
@@ -81,7 +81,7 @@ fun PackingScreen(
                     .padding(horizontal = 16.dp)
             ) {
                 items(categories.size) { index ->
-                    PackingCategory(category = categories[index])
+                    Category(category = categories[index])
                 }
             }
         }
@@ -114,8 +114,8 @@ fun PackingScreen(
 
 @Preview(showBackground = true)
 @Composable
-fun PackingScreenPreview() {
+fun CategoryScreenPreview() {
     PackieTheme {
-        PackingScreen(listOf("출근", "놀러갈 때", "여행", "출근", "놀러갈 때", "여행", "출근", "놀러갈 때"))
+        CategoryScreen(listOf("출근", "놀러갈 때", "여행", "출근", "놀러갈 때", "여행", "출근", "놀러갈 때"))
     }
 }
