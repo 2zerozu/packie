@@ -63,6 +63,7 @@ dependencies {
     implementation(libs.hilt.android)
     implementation(libs.hilt.core)
     implementation(libs.hilt.plugin)
+    implementation(libs.compose.hilt.navigation)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)

@@ -1,5 +1,6 @@
 package org.care.packie.feature.category
 
+import androidx.activity.viewModels
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.foundation.layout.Arrangement
@@ -25,6 +26,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.lerp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import me.onebone.toolbar.CollapsingToolbarScaffold
 import me.onebone.toolbar.ScrollStrategy
 import me.onebone.toolbar.rememberCollapsingToolbarScaffoldState
@@ -42,9 +45,8 @@ private const val MAX_SPACER_SIZE = 80
 
 @Composable
 fun CategoryScreen(
-    viewModel: CategoryViewModel
+    viewModel: CategoryViewModel = hiltViewModel()
 ) {
-    viewModel.getCategories()
     val categories by viewModel.categories.collectAsState()
 
     PackieTheme {
@@ -59,7 +61,7 @@ fun CategoryScreen(
 
 @Composable
 fun CategoryScreen(
-    categories: List<String>,
+    categories: Set<String>,
     onClickAddCategory: (String) -> Unit
 ) {
     val state = rememberCollapsingToolbarScaffoldState()
@@ -100,7 +102,7 @@ fun CategoryScreen(
                     .padding(horizontal = 16.dp)
             ) {
                 items(categories.size) { index ->
-                    Category(category = categories[index])
+                    Category(category = categories.toString())
                 }
             }
         }
@@ -135,6 +137,5 @@ fun CategoryScreen(
 @Composable
 fun CategoryScreenPreview() {
     PackieTheme {
-        CategoryScreen(CategoryViewModel())
     }
 }
