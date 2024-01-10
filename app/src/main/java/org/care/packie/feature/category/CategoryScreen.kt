@@ -1,12 +1,12 @@
-package org.care.packie.feature.packingCategory
+package org.care.packie.feature.category
 
-import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -29,9 +30,9 @@ import me.onebone.toolbar.ScrollStrategy
 import me.onebone.toolbar.rememberCollapsingToolbarScaffoldState
 import org.care.packie.R
 import org.care.packie.ui.AddDialogType
+import org.care.packie.ui.component.category.Category
 import org.care.packie.ui.component.common.PackieButton
 import org.care.packie.ui.component.dialog.AddDialog
-import org.care.packie.ui.component.packingCategory.PackingCategory
 import org.care.packie.ui.theme.PackieDesignSystem
 import org.care.packie.ui.theme.PackieTheme
 
@@ -40,8 +41,26 @@ private const val MIN_SPACER_SIZE = 4
 private const val MAX_SPACER_SIZE = 80
 
 @Composable
-fun PackingScreen(
-    categories: List<String>
+fun CategoryScreen(
+    viewModel: CategoryViewModel
+) {
+    viewModel.getCategories()
+    val categories by viewModel.categories.collectAsState()
+
+    PackieTheme {
+        Box(modifier = Modifier.fillMaxSize()) {
+            CategoryScreen(
+                categories = categories,
+                onClickAddCategory = { viewModel.addCategory(it) }
+            )
+        }
+    }
+}
+
+@Composable
+fun CategoryScreen(
+    categories: List<String>,
+    onClickAddCategory: (String) -> Unit
 ) {
     val state = rememberCollapsingToolbarScaffoldState()
     val isCollapseEnabled = categories.size >= MIN_CATEGORY_SIZE
@@ -81,7 +100,7 @@ fun PackingScreen(
                     .padding(horizontal = 16.dp)
             ) {
                 items(categories.size) { index ->
-                    PackingCategory(category = categories[index])
+                    Category(category = categories[index])
                 }
             }
         }
@@ -104,7 +123,7 @@ fun PackingScreen(
         AddDialog(
             type = AddDialogType.PACKING_CATEGORY,
             onConfirmation = {
-                Log.d("asdf", "\'$it\'이 추가되었습니다")
+                onClickAddCategory(it)
                 isDialogOpen = false
             },
             onDismiss = { isDialogOpen = false }
@@ -114,8 +133,8 @@ fun PackingScreen(
 
 @Preview(showBackground = true)
 @Composable
-fun PackingScreenPreview() {
+fun CategoryScreenPreview() {
     PackieTheme {
-        PackingScreen(listOf("출근", "놀러갈 때", "여행", "출근", "놀러갈 때", "여행", "출근", "놀러갈 때"))
+        CategoryScreen(CategoryViewModel())
     }
 }
