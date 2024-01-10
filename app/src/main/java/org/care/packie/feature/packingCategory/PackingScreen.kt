@@ -3,17 +3,12 @@ package org.care.packie.feature.packingCategory
 import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.foundation.background
-import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -25,7 +20,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -103,31 +97,19 @@ fun PackingScreen(
         }
         Spacer(modifier = Modifier.size(44.dp))
     }
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .then(if (isDialogOpen) Modifier.background(PackieDesignSystem.colors.backgroundBlackAlpha50) else Modifier)
-            .then(if (isDialogOpen) Modifier.pointerInput(Unit) {
-                detectTapGestures(onTap = { isDialogOpen = false })
-            } else Modifier),
-        contentAlignment = Alignment.Center
+
+    AnimatedVisibility(
+        visible = isDialogOpen,
+        enter = fadeIn()
     ) {
-        Box(modifier = Modifier.offset(y = (-60).dp)) {
-            AnimatedVisibility(
-                visible = isDialogOpen,
-                enter = fadeIn(),
-                exit = fadeOut(),
-            ) {
-                AddDialog(
-                    type = AddDialogType.PACKING_CATEGORY,
-                    onConfirmation = {
-                        Log.d("asdf", "\'$it\'이 추가되었습니다")
-                        isDialogOpen = false
-                    },
-                    onDismiss = { isDialogOpen = false }
-                )
-            }
-        }
+        AddDialog(
+            type = AddDialogType.PACKING_CATEGORY,
+            onConfirmation = {
+                Log.d("asdf", "\'$it\'이 추가되었습니다")
+                isDialogOpen = false
+            },
+            onDismiss = { isDialogOpen = false }
+        )
     }
 }
 
