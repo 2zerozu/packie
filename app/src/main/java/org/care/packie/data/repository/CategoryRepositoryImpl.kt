@@ -9,8 +9,9 @@ class CategoryRepositoryImpl @Inject constructor(
 ) : CategoryRepository {
     override fun getCategories(): Set<String> = localCategoryDataSource.categories
 
-
     override fun addCategory(category: String) {
-        localCategoryDataSource.categories.plus(category)
+        val updatedCategories = localCategoryDataSource.categories.toMutableSet()
+        updatedCategories.add(category)
+        localCategoryDataSource.categories = updatedCategories
     }
 }

@@ -1,6 +1,5 @@
 package org.care.packie.feature.category
 
-import androidx.activity.viewModels
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.foundation.layout.Arrangement
@@ -15,6 +14,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -27,7 +27,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.lerp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
 import me.onebone.toolbar.CollapsingToolbarScaffold
 import me.onebone.toolbar.ScrollStrategy
 import me.onebone.toolbar.rememberCollapsingToolbarScaffoldState
@@ -47,6 +46,10 @@ private const val MAX_SPACER_SIZE = 80
 fun CategoryScreen(
     viewModel: CategoryViewModel = hiltViewModel()
 ) {
+    LaunchedEffect(true) {
+        viewModel.getCategories()
+    }
+
     val categories by viewModel.categories.collectAsState()
 
     PackieTheme {
@@ -102,7 +105,7 @@ fun CategoryScreen(
                     .padding(horizontal = 16.dp)
             ) {
                 items(categories.size) { index ->
-                    Category(category = categories.toString())
+                    Category(category = categories.elementAt(index))
                 }
             }
         }
