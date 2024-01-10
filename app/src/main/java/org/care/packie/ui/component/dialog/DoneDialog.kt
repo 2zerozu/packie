@@ -11,10 +11,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -22,18 +18,20 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
 import org.care.packie.R
 import org.care.packie.ui.theme.PackieDesignSystem
 import org.care.packie.ui.theme.PackieTheme
 
 @Composable
-fun DoneDialog() {
-    var isDialogOpen by remember { mutableStateOf(true) }
-
-    if (isDialogOpen) {
+fun DoneDialog(
+    onDismiss: () -> Unit
+) {
+    Dialog(
+        onDismissRequest = onDismiss
+    ) {
         Box(
             modifier = Modifier
-                .fillMaxWidth(0.8f)
                 .clip(RoundedCornerShape(size = 8.dp))
                 .background(color = PackieDesignSystem.colors.white)
                 .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 8.dp)
@@ -49,14 +47,13 @@ fun DoneDialog() {
                     horizontalArrangement = Arrangement.End
                 ) {
                     DoneDialogConfirmButton(
-                        onConfirmation = { isDialogOpen = false }
+                        onConfirmation = onDismiss
                     )
                 }
             }
         }
     }
 }
-
 
 @Composable
 fun DoneDialogTitle() {
@@ -96,6 +93,6 @@ fun DoneDialogConfirmButton(
 @Composable
 fun DoneDialogPreview() {
     PackieTheme {
-        DoneDialog()
+        DoneDialog(onDismiss = {})
     }
 }
