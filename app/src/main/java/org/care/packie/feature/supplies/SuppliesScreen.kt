@@ -1,4 +1,4 @@
-package org.care.packie.feature.packingCategory
+package org.care.packie.feature.supplies
 
 import android.util.Log
 import androidx.compose.animation.AnimatedVisibility
@@ -31,7 +31,7 @@ import org.care.packie.R
 import org.care.packie.ui.AddDialogType
 import org.care.packie.ui.component.common.PackieButton
 import org.care.packie.ui.component.dialog.AddDialog
-import org.care.packie.ui.component.packingCategory.PackingCategory
+import org.care.packie.ui.component.suppliesCategory.SuppliesCategory
 import org.care.packie.ui.theme.PackieDesignSystem
 import org.care.packie.ui.theme.PackieTheme
 
@@ -81,7 +81,7 @@ fun PackingScreen(
                     .padding(horizontal = 16.dp)
             ) {
                 items(categories.size) { index ->
-                    PackingCategory(category = categories[index])
+                    SuppliesCategory(category = categories[index])
                 }
             }
         }
@@ -114,7 +114,7 @@ fun PackingScreen(
 
 @Preview(showBackground = true)
 @Composable
-fun PackingScreenPreview() {
+fun SuppliesScreenPreview() {
     PackieTheme {
         PackingScreen(listOf("출근", "놀러갈 때", "여행", "출근", "놀러갈 때", "여행", "출근", "놀러갈 때"))
     }
