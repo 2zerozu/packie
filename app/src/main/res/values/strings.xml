@@ -11,6 +11,7 @@
 
     <!-- packing category -->
     <string name="packing_category_title">오늘의 준비물을 선택해 주세요</string>
+    <string name="packing_category_button">추가하기</string>
 
     <!-- done dialog -->
     <string name="done_dialog_title">외출 준비 완료!</string>
