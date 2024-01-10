@@ -11,6 +11,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -27,28 +31,32 @@ import org.care.packie.ui.theme.PackieTheme
 fun DoneDialog(
     onDismiss: () -> Unit
 ) {
-    Dialog(
-        onDismissRequest = onDismiss
-    ) {
-        Box(
-            modifier = Modifier
-                .clip(RoundedCornerShape(size = 8.dp))
-                .background(color = PackieDesignSystem.colors.white)
-                .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 8.dp)
-        ) {
-            Column(
-                modifier = Modifier.align(Alignment.Center)
-            ) {
-                DoneDialogTitle()
-                DoneDialogContent()
+    var isDialogOpen by remember { mutableStateOf(true) }
 
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.End
+    if (isDialogOpen) {
+        Dialog(
+            onDismissRequest = onDismiss
+        ) {
+            Box(
+                modifier = Modifier
+                    .clip(RoundedCornerShape(size = 8.dp))
+                    .background(color = PackieDesignSystem.colors.white)
+                    .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 8.dp)
+            ) {
+                Column(
+                    modifier = Modifier.align(Alignment.Center)
                 ) {
-                    DoneDialogConfirmButton(
-                        onConfirmation = onDismiss
-                    )
+                    DoneDialogTitle()
+                    DoneDialogContent()
+
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.End
+                    ) {
+                        DoneDialogConfirmButton(
+                            onConfirmation = onDismiss
+                        )
+                    }
                 }
             }
         }
