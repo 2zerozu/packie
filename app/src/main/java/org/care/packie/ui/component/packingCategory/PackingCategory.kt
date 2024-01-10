@@ -1,4 +1,4 @@
-package org.care.packie.ui.component.suppliesCategory
+package org.care.packie.ui.component.packingCategory
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -20,7 +20,7 @@ import org.care.packie.R
 import org.care.packie.ui.theme.PackieDesignSystem
 
 @Composable
-fun SuppliesCategory(
+fun PackingCategory(
     category: String
 ) {
     Row(
@@ -53,6 +53,6 @@ fun SuppliesCategory(
 
 @Preview(showBackground = true)
 @Composable
-fun SuppliesCategoryPreview() {
-    SuppliesCategory("출근")
+fun PackingCategoryPreview() {
+    PackingCategory("출근")
 }
