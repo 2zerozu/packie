@@ -23,7 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.compose.ui.unit.lerp
 import me.onebone.toolbar.CollapsingToolbarScaffold
 import me.onebone.toolbar.ScrollStrategy
 import me.onebone.toolbar.rememberCollapsingToolbarScaffoldState
@@ -55,11 +55,6 @@ fun PackingScreen(
             enabled = isCollapseEnabled,
             scrollStrategy = ScrollStrategy.ExitUntilCollapsed,
             toolbar = {
-                val contentFontSize = PackieDesignSystem.typography.content.fontSize.value
-                val titleFontSize = PackieDesignSystem.typography.title.fontSize.value
-                val fontSize =
-                    (contentFontSize + (titleFontSize - contentFontSize) * toolbarStateProgress)
-
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -71,7 +66,11 @@ fun PackingScreen(
                     style = PackieDesignSystem.typography.title,
                     color = PackieDesignSystem.colors.white,
                     modifier = Modifier.road(Alignment.TopCenter, Alignment.Center),
-                    fontSize = fontSize.sp
+                    fontSize = lerp(
+                        start = PackieDesignSystem.typography.content.fontSize,
+                        stop = PackieDesignSystem.typography.title.fontSize,
+                        fraction = toolbarStateProgress
+                    )
                 )
             }
         ) {
