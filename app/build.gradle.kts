@@ -63,7 +63,6 @@ dependencies {
     implementation(libs.collapsing.toolbar)
     implementation(libs.security)
     implementation(libs.hilt.android)
-    implementation(libs.hilt.core)
     implementation(libs.hilt.plugin)
     implementation(libs.compose.hilt.navigation)
     kapt(libs.hilt.kapt)
