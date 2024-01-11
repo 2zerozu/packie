@@ -10,6 +10,10 @@
     <string name="textField_dialog_dismiss">취소</string>
     <string name="textField_dialog_edit">수정</string>
 
+    <!-- popup menu -->
+    <string name="popup_menu_edit">수정하기</string>
+    <string name="popup_menu_delete">삭제하기</string>
+
     <!-- packing category -->
     <string name="packing_category_title">오늘의 준비물을 선택해 주세요</string>
     <string name="packing_category_button">추가하기</string>

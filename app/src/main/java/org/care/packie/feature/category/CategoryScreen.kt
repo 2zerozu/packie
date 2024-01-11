@@ -149,8 +149,12 @@ fun CategoryScreen(
                 if (dialogType == TextFieldDialogType.ADD_CATEGORY) onClickAddCategory(it)
                 else onClickEditCategory(categoryName, it)
                 isDialogOpen = false
+                categoryName = ""
             },
-            onDismiss = { isDialogOpen = false }
+            onDismiss = {
+                isDialogOpen = false
+                categoryName = ""
+            }
         )
     }
 }
