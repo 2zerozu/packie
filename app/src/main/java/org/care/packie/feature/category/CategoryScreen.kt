@@ -31,9 +31,11 @@ import me.onebone.toolbar.CollapsingToolbarScaffold
 import me.onebone.toolbar.ScrollStrategy
 import me.onebone.toolbar.rememberCollapsingToolbarScaffoldState
 import org.care.packie.R
+import org.care.packie.ui.DoneDialogType
 import org.care.packie.ui.TextFieldDialogType
 import org.care.packie.ui.component.category.Category
 import org.care.packie.ui.component.common.PackieButton
+import org.care.packie.ui.component.dialog.DoneDialog
 import org.care.packie.ui.component.dialog.TextFieldDialog
 import org.care.packie.ui.theme.PackieDesignSystem
 import org.care.packie.ui.theme.PackieTheme
@@ -78,7 +80,8 @@ fun CategoryScreen(
     val toolbarStateProgress = state.toolbarState.progress
     var categoryName by remember { mutableStateOf("") }
     var dialogType by remember { mutableStateOf(TextFieldDialogType.ADD_CATEGORY) }
-    var isDialogOpen by remember { mutableStateOf(false) }
+    var isTextFieldDialogOpen by remember { mutableStateOf(false) }
+    var isDoneDialogOpen by remember { mutableStateOf(false) }
 
     Column {
         CollapsingToolbarScaffold(
@@ -117,18 +120,23 @@ fun CategoryScreen(
                     Category(
                         category = content,
                         onClickEdit = {
-                            isDialogOpen = true;
-                            dialogType = TextFieldDialogType.EDIT_CATEGORY;
-                            categoryName = content;
+                            isTextFieldDialogOpen = true
+                            dialogType = TextFieldDialogType.EDIT_CATEGORY
+                            categoryName = content
                         },
-                        onClickDelete = { onClickDeleteCategory(content) }
+                        onClickDelete = {
+                            isDoneDialogOpen = true
+                            categoryName = content
+                        }
                     )
                 }
             }
         }
         Spacer(modifier = Modifier.size((MIN_SPACER_SIZE + (MAX_SPACER_SIZE - MIN_SPACER_SIZE) * toolbarStateProgress).dp))
         PackieButton(
-            onClick = { isDialogOpen = true; dialogType = TextFieldDialogType.ADD_CATEGORY },
+            onClick = {
+                isTextFieldDialogOpen = true; dialogType = TextFieldDialogType.ADD_CATEGORY
+            },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 16.dp)
@@ -139,7 +147,7 @@ fun CategoryScreen(
     }
 
     AnimatedVisibility(
-        visible = isDialogOpen,
+        visible = isTextFieldDialogOpen,
         enter = fadeIn()
     ) {
         TextFieldDialog(
@@ -148,13 +156,28 @@ fun CategoryScreen(
             onConfirmation = {
                 if (dialogType == TextFieldDialogType.ADD_CATEGORY) onClickAddCategory(it)
                 else onClickEditCategory(categoryName, it)
-                isDialogOpen = false
+                isTextFieldDialogOpen = false
                 categoryName = ""
             },
             onDismiss = {
-                isDialogOpen = false
+                isTextFieldDialogOpen = false
                 categoryName = ""
             }
+        )
+    }
+
+    AnimatedVisibility(
+        visible = isDoneDialogOpen,
+        enter = fadeIn()
+    ) {
+        DoneDialog(
+            type = DoneDialogType.DELETE,
+            onConfirm = {
+                onClickDeleteCategory(categoryName)
+                isDoneDialogOpen = false
+                categoryName = ""
+            },
+            onDismiss = { isDoneDialogOpen = false }
         )
     }
 }

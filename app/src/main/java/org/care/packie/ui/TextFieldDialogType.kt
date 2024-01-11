@@ -17,6 +17,14 @@ enum class TextFieldDialogType {
         get() = when (this) {
             ADD_CATEGORY -> stringResource(id = R.string.textField_dialog_add_category_title)
             ADD_STUFF -> stringResource(id = R.string.textField_dialog_add_stuff_title)
-            EDIT_CATEGORY -> ""
+            EDIT_CATEGORY -> stringResource(id = R.string.textField_dialog_add_edit_title)
+        }
+
+    val confirm: String
+        @Composable
+        @ReadOnlyComposable
+        get() = when (this) {
+            ADD_CATEGORY,ADD_STUFF -> stringResource(id = R.string.textField_dialog_confirm)
+            EDIT_CATEGORY -> stringResource(id = R.string.textField_dialog_edit)
         }
 }

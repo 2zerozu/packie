@@ -65,7 +65,7 @@ fun TextFieldDialog(
             Column(
                 modifier = Modifier.align(Alignment.Center)
             ) {
-                TextFieldDialogTitle(type)
+                TextFieldDialogTitle(title = type.title)
                 TextFieldDialogTextField(
                     textFieldValue = textFieldValue,
                     onValueChange = { newValue -> textFieldValue = newValue },
@@ -80,7 +80,7 @@ fun TextFieldDialog(
                         .offset(y = 6.dp),
                 )
                 TextFieldDialogActionButtons(
-                    type = type,
+                    confirm = type.confirm,
                     onDismiss = onDismiss,
                     onConfirmation = {
                         onConfirmation(textFieldValue.text)
@@ -93,10 +93,10 @@ fun TextFieldDialog(
 
 @Composable
 fun TextFieldDialogTitle(
-    type: TextFieldDialogType
+    title: String
 ) {
     Text(
-        text = type.title,
+        text = title,
         style = PackieDesignSystem.typography.title
     )
 }
@@ -172,7 +172,7 @@ fun TextFieldDialogTextFieldLength(
 
 @Composable
 fun TextFieldDialogActionButtons(
-    type: TextFieldDialogType,
+    confirm: String,
     onDismiss: () -> Unit,
     onConfirmation: () -> Unit
 ) {
@@ -184,7 +184,7 @@ fun TextFieldDialogActionButtons(
             onDismiss = onDismiss
         )
         ConfirmButton(
-            type = type,
+            confirm = confirm,
             onConfirmation = onConfirmation
         )
     }
@@ -211,7 +211,7 @@ fun DismissButton(
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun ConfirmButton(
-    type: TextFieldDialogType,
+    confirm: String,
     onConfirmation: () -> Unit
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -223,8 +223,7 @@ fun ConfirmButton(
         }
     ) {
         Text(
-            text = if (type == TextFieldDialogType.EDIT_CATEGORY) stringResource(id = R.string.textField_dialog_edit)
-            else stringResource(id = R.string.textField_dialog_confirm),
+            text = confirm,
             style = PackieDesignSystem.typography.subTitle,
             color = PackieDesignSystem.colors.purple,
             fontWeight = FontWeight.Bold

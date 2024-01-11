@@ -3,6 +3,7 @@
 
     <!-- text field dialog -->
     <string name="textField_dialog_add_category_title">어떤 목록을 추가하시나요?</string>
+    <string name="textField_dialog_add_edit_title">어떻게 수정하시나요?</string>
     <string name="textField_dialog_add_stuff_title">무엇을 더 챙겨야 하나요?</string>
     <string name="textField_dialog_max_length_hint">7자 이하로 입력해 주세요</string>
     <string name="textField_dialog_length">%d / %d</string>
@@ -19,7 +20,9 @@
     <string name="packing_category_button">추가하기</string>
 
     <!-- done dialog -->
-    <string name="done_dialog_title">외출 준비 완료!</string>
-    <string name="done_dialog_content">핸드폰은 들고계신 거 잊지 않으셨죠?\n오늘도 즐거운 하루 보내세요 :D</string>
+    <string name="done_dialog_complete_title">외출 준비 완료!</string>
+    <string name="done_dialog_complete_content">핸드폰은 들고계신 거 잊지 않으셨죠?\n오늘도 즐거운 하루 보내세요 :D</string>
+    <string name="done_dialog_delete_title">정말 삭제하실 건가요?</string>
+    <string name="done_dialog_delete_content">지워진 목록은 복구할 수 없어요</string>
     <string name="done_dialog_confirm">확인</string>
 </resources>
