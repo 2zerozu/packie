@@ -8,7 +8,6 @@ import org.care.packie.R
 
 @Composable
 fun CrossfadeToggle(
-    modifier: Modifier = Modifier,
     isEnable: Boolean,
     label: String = stringResource(id = R.string.cross_fade_animation),
     enableComposable: @Composable () -> Unit,
