@@ -11,6 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import org.care.packie.StuffsPreviewProvider
 import org.care.packie.ui.component.stuff.rememberEditModeState
 import org.care.packie.ui.theme.PackieTheme
 import org.care.packie.utils.ui.scroll.PackieTopBarScrollBehavior
@@ -77,7 +78,7 @@ fun StuffScreenPreview() {
     PackieTheme {
         StuffsScreen(
             category = "출근",
-            defaultStuffs = (1..100).associate { "item${it}" to false }
+            defaultStuffs = StuffsPreviewProvider.mockStuffs
         )
     }
 }
