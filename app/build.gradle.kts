@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.com.android.application)
     alias(libs.plugins.org.jetbrains.kotlin.android)
+    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.dagger.hilt)
 }
 
 android {
@@ -59,6 +61,11 @@ dependencies {
     implementation(libs.ui.tooling.preview)
     implementation(libs.material3)
     implementation(libs.collapsing.toolbar)
+    implementation(libs.security)
+    implementation(libs.hilt.android)
+    implementation(libs.hilt.plugin)
+    implementation(libs.compose.hilt.navigation)
+    kapt(libs.hilt.kapt)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.espresso.core)

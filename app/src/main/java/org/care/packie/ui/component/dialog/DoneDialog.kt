@@ -20,11 +20,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import org.care.packie.R
+import org.care.packie.ui.DoneDialogType
 import org.care.packie.ui.theme.PackieDesignSystem
 import org.care.packie.ui.theme.PackieTheme
 
 @Composable
 fun DoneDialog(
+    type: DoneDialogType,
+    onConfirm: () -> Unit,
     onDismiss: () -> Unit
 ) {
     Dialog(
@@ -39,15 +42,15 @@ fun DoneDialog(
             Column(
                 modifier = Modifier.align(Alignment.Center)
             ) {
-                DoneDialogTitle()
-                DoneDialogContent()
+                DoneDialogTitle(type)
+                DoneDialogContent(type)
 
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.End
                 ) {
                     DoneDialogConfirmButton(
-                        onConfirmation = onDismiss
+                        onConfirmation = onConfirm
                     )
                 }
             }
@@ -56,17 +59,21 @@ fun DoneDialog(
 }
 
 @Composable
-fun DoneDialogTitle() {
+fun DoneDialogTitle(
+    type: DoneDialogType
+) {
     Text(
-        text = stringResource(id = R.string.done_dialog_title),
+        text = type.title,
         style = PackieDesignSystem.typography.title
     )
 }
 
 @Composable
-fun DoneDialogContent() {
+fun DoneDialogContent(
+    type: DoneDialogType
+) {
     Text(
-        text = stringResource(id = R.string.done_dialog_content),
+        text = type.content,
         color = PackieDesignSystem.colors.grayContent,
         style = PackieDesignSystem.typography.subTitle
     )
@@ -93,6 +100,6 @@ fun DoneDialogConfirmButton(
 @Composable
 fun DoneDialogPreview() {
     PackieTheme {
-        DoneDialog(onDismiss = {})
+        DoneDialog(DoneDialogType.COMPLETE, onConfirm = {}, {})
     }
 }

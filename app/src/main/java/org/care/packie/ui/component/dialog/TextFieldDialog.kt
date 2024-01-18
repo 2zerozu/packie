@@ -37,24 +37,23 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import org.care.packie.R
-import org.care.packie.ui.AddDialogType
+import org.care.packie.ui.TextFieldDialogType
 import org.care.packie.ui.theme.PackieDesignSystem
 import org.care.packie.ui.theme.PackieTheme
 
 private const val MAX_LENGTH = 7
 
-/** TextField empty 처리 어케 할지 고민해보기 */
-
 @Composable
-fun AddDialog(
-    type: AddDialogType,
+fun TextFieldDialog(
+    content: String = "",
+    type: TextFieldDialogType,
     onConfirmation: (String) -> Unit,
     onDismiss: () -> Unit
 ) {
     Dialog(
         onDismissRequest = onDismiss
     ) {
-        var textFieldValue by remember { mutableStateOf(TextFieldValue("")) }
+        var textFieldValue by remember { mutableStateOf(TextFieldValue(content)) }
 
         Box(
             modifier = Modifier
@@ -66,21 +65,22 @@ fun AddDialog(
             Column(
                 modifier = Modifier.align(Alignment.Center)
             ) {
-                AddDialogTitle(type)
-                AddDialogTextField(
+                TextFieldDialogTitle(title = type.title)
+                TextFieldDialogTextField(
                     textFieldValue = textFieldValue,
                     onValueChange = { newValue -> textFieldValue = newValue },
                     onConfirmation = { confirmedValue ->
                         onConfirmation(confirmedValue)
                     }
                 )
-                AddDialogTextFieldLength(
+                TextFieldDialogTextFieldLength(
                     textFieldValue.text.length,
                     modifier = Modifier
                         .align(Alignment.End)
                         .offset(y = 6.dp),
                 )
-                AddDialogActionButtons(
+                TextFieldDialogActionButtons(
+                    confirm = type.confirm,
                     onDismiss = onDismiss,
                     onConfirmation = {
                         onConfirmation(textFieldValue.text)
@@ -92,18 +92,18 @@ fun AddDialog(
 }
 
 @Composable
-fun AddDialogTitle(
-    type: AddDialogType
+fun TextFieldDialogTitle(
+    title: String
 ) {
     Text(
-        text = type.title,
+        text = title,
         style = PackieDesignSystem.typography.title
     )
 }
 
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
-fun AddDialogTextField(
+fun TextFieldDialogTextField(
     textFieldValue: TextFieldValue,
     onValueChange: (TextFieldValue) -> Unit,
     onConfirmation: (String) -> Unit
@@ -135,7 +135,7 @@ fun AddDialogTextField(
             ) {
                 if (textFieldValue.text.isEmpty()) {
                     Text(
-                        text = stringResource(id = R.string.add_dialog_max_length_hint),
+                        text = stringResource(id = R.string.textField_dialog_max_length_hint),
                         style = PackieDesignSystem.typography.subTitle,
                         color = PackieDesignSystem.colors.grayContent
                     )
@@ -158,12 +158,12 @@ fun AddDialogTextField(
 }
 
 @Composable
-fun AddDialogTextFieldLength(
+fun TextFieldDialogTextFieldLength(
     length: Int,
     modifier: Modifier
 ) {
     Text(
-        text = stringResource(id = R.string.add_dialog_length, length, MAX_LENGTH),
+        text = stringResource(id = R.string.textField_dialog_length, length, MAX_LENGTH),
         modifier = modifier,
         color = PackieDesignSystem.colors.grayContent,
         style = PackieDesignSystem.typography.body
@@ -171,7 +171,8 @@ fun AddDialogTextFieldLength(
 }
 
 @Composable
-fun AddDialogActionButtons(
+fun TextFieldDialogActionButtons(
+    confirm: String,
     onDismiss: () -> Unit,
     onConfirmation: () -> Unit
 ) {
@@ -183,6 +184,7 @@ fun AddDialogActionButtons(
             onDismiss = onDismiss
         )
         ConfirmButton(
+            confirm = confirm,
             onConfirmation = onConfirmation
         )
     }
@@ -198,7 +200,7 @@ fun DismissButton(
         }
     ) {
         Text(
-            text = stringResource(id = R.string.add_dialog_dismiss),
+            text = stringResource(id = R.string.textField_dialog_dismiss),
             style = PackieDesignSystem.typography.subTitle,
             color = PackieDesignSystem.colors.grayCancel,
             fontWeight = FontWeight.Bold
@@ -209,6 +211,7 @@ fun DismissButton(
 @OptIn(ExperimentalComposeUiApi::class)
 @Composable
 fun ConfirmButton(
+    confirm: String,
     onConfirmation: () -> Unit
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -220,7 +223,7 @@ fun ConfirmButton(
         }
     ) {
         Text(
-            text = stringResource(id = R.string.add_dialog_confirm),
+            text = confirm,
             style = PackieDesignSystem.typography.subTitle,
             color = PackieDesignSystem.colors.purple,
             fontWeight = FontWeight.Bold
@@ -230,10 +233,11 @@ fun ConfirmButton(
 
 @Preview(widthDp = 360)
 @Composable
-fun AddDialogPreview() {
+fun TextFieldDialogPreview() {
     PackieTheme {
-        AddDialog(
-            type = AddDialogType.PACKING_CATEGORY,
+        TextFieldDialog(
+            content = "아아아악",
+            type = TextFieldDialogType.EDIT_CATEGORY,
             onConfirmation = { textValue ->
                 Log.d("asdf", textValue)
             },
