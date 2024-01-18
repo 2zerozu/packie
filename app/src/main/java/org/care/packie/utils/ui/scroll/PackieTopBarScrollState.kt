@@ -3,7 +3,6 @@ package org.care.packie.utils.ui.scroll
 import androidx.annotation.FloatRange
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.remember
@@ -11,9 +10,10 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.dp
 
 @Composable
-fun rememberPackieTopBarScrollState(
+fun rememberPackieTopBarState(
     maxHeight: Dp,
     minHeight: Dp
 ): PackieTopBarScrollState {
@@ -30,8 +30,8 @@ fun rememberPackieTopBarScrollState(
 
 @Stable
 class PackieTopBarScrollState(
-    val maxHeight: Float,
-    val minHeight: Float
+    val maxHeightPx: Float,
+    val minHeightPx: Float
 ) {
     /**
      * 현재 스크롤 offset 값.
@@ -44,25 +44,27 @@ class PackieTopBarScrollState(
     /**
      * 실질적 높이 값
      */
-    var height by mutableFloatStateOf(maxHeight)
+    var heightPx by mutableFloatStateOf(maxHeightPx)
         private set
+    val height: Dp
+        @Composable get() = (heightPx / LocalDensity.current.density).dp
     /**
      * 최대 최소 높이값 차이
      */
-    val differenceHeight = maxHeight - minHeight
+    val differenceHeight = maxHeightPx - minHeightPx
     /**
      * collapsing 이 진행된 progress
-     * [maxHeight] 일때 0.0, [minHeight] 일때 1.0
+     * [maxHeightPx] 일때 0.0, [minHeightPx] 일때 1.0
      */
     val progress
         @FloatRange(from = 0.0, to = 1.0)
-        get() = (maxHeight - height)/differenceHeight
-
-    val isCollapsed by derivedStateOf { progress > 0.9 }
+        get() = (maxHeightPx - heightPx)/differenceHeight
+    val isCollapsed: Boolean
+        get() = offset == -differenceHeight
 
     init {
-        validateMinHeight(minHeight)
-        validateMaxHeight(maxHeight, minHeight)
+        validateMinHeight(minHeightPx)
+        validateMaxHeight(maxHeightPx, minHeightPx)
     }
 
     private fun validateMaxHeight(maxHeight: Float, minHeight: Float) {
@@ -81,7 +83,7 @@ class PackieTopBarScrollState(
         val oldOffset = offset
         val newOffset = (oldOffset + delta).coerceIn(-(differenceHeight), 0f)
         offset = newOffset
-        height = maxHeight + offset
+        heightPx = maxHeightPx + offset
         return Offset(0f, newOffset - oldOffset)
     }
 }

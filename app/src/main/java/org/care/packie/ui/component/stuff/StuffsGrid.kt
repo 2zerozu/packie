@@ -75,24 +75,20 @@ fun MutableStuffsGrid(
 
 @Preview
 @Composable
-fun StuffsGridPreview(
-    @PreviewParameter(StuffsPreviewProvider::class) stuffs: Map<String, Boolean>
-) {
+fun StuffsGridPreview() {
     PackieTheme {
         StuffsGrid(
-            stuffs = stuffs
+            stuffs = StuffsPreviewProvider.previewMockData
         )
     }
 }
 
 @Preview
 @Composable
-fun MutableStuffsGridPreview(
-    @PreviewParameter(StuffsPreviewProvider::class) stuffs: Map<String, Boolean>
-) {
+fun MutableStuffsGridPreview() {
     PackieTheme {
         MutableStuffsGrid(
-            stuffs = stuffs
+            stuffs = StuffsPreviewProvider.previewMockData
         )
     }
 }

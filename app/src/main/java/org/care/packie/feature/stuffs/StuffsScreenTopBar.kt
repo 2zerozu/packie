@@ -1,43 +1,32 @@
 package org.care.packie.feature.stuffs
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.lerp
-import me.onebone.toolbar.CollapsingToolbarScaffoldState
 import org.care.packie.R
 import org.care.packie.ui.component.stuff.MutableStuffsTopBarIconButton
 import org.care.packie.ui.component.stuff.StuffsTopBarIconButton
 import org.care.packie.ui.theme.PackieDesignSystem
 import org.care.packie.utils.ui.CrossfadeToggle
 import org.care.packie.utils.ui.scroll.PackieTopBarScrollState
-import org.care.packie.utils.ui.scroll.rememberPackieTopBarScrollState
+import org.care.packie.utils.ui.scroll.rememberPackieTopBarState
 
 object StuffsTopBarSpacerToken {
     val maxHeight = 131.dp
     val minHeight = 70.dp
-    val minTopHeight = 32.dp
-    val maxTopHeight = 60.dp
-    val minBottomHeight = 10.dp
-    val maxBottomHeight = 43.dp
 }
 
 @Composable
@@ -47,7 +36,7 @@ fun StuffsScreenTopBar(
     isEditMode: Boolean,
     onCategoryClick: () -> Unit = {},
     onBackClick: () -> Unit = {},
-    state: PackieTopBarScrollState = rememberPackieTopBarScrollState(
+    state: PackieTopBarScrollState = rememberPackieTopBarState(
         maxHeight = StuffsTopBarSpacerToken.maxHeight,
         minHeight = StuffsTopBarSpacerToken.minHeight
     )
@@ -58,7 +47,7 @@ fun StuffsScreenTopBar(
         fraction = state.progress
     )
     Box(modifier = modifier
-        .height((state.height / LocalDensity.current.density).dp)
+        .height(state.height)
     ) {
         StuffsTopBarNavigationButton(
             isEditMode = isEditMode,
