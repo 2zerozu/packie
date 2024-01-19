@@ -8,8 +8,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavGraph
 import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import dagger.hilt.android.AndroidEntryPoint
+import org.care.packie.feature.category.CategoryScreen
 import org.care.packie.feature.stuffs.StuffsScreenRoot
 import org.care.packie.ui.theme.PackieTheme
 
@@ -30,11 +32,16 @@ fun PackieApp() {
     PackieTheme {
         NavHost(
             navController = navController,
-            startDestination = "test"
+            // TODO: 추후 Category에도 구현하면 해당 부분 Category로 변경
+            startDestination = PackieNavDestination.StuffsScreen.route
         ) {
-
+            composable(PackieNavDestination.CategoryScreen.route) {
+                CategoryScreen()
+            }
+            composable(PackieNavDestination.StuffsScreen.route) {
+                StuffsScreenRoot()
+            }
         }
-        StuffsScreenRoot()
     }
 }
 
