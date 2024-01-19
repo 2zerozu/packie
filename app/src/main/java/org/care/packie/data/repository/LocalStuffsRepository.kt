@@ -9,15 +9,16 @@ import javax.inject.Inject
 class LocalStuffsRepository @Inject constructor(
     private val stuffsDataSource: StuffsDataSource,
     private val json: Json
-): StuffsRepository {
-    override fun getRecommendedStuffsOf(category: String): List<String> {
-        return stuffsDataSource.getRecommendedStuffsOf(category)?.let {
-            json.decodeFromString<List<String>>(it)
-        } ?: emptyList()
+) : StuffsRepository {
+    override suspend fun getRecommendedStuffsOf(category: String): List<String> {
+        return stuffsDataSource.getRecommendedStuffsOf(category)
+            ?.let {
+                json.decodeFromString<List<String>>(it)
+            } ?: emptyList()
     }
 
-    override fun setRecommendedStuffsOf(category: String, stuffs: List<String>) {
-       val stuffsJson = json.encodeToString(stuffs)
+    override suspend fun setRecommendedStuffsOf(category: String, stuffs: List<String>) {
+        val stuffsJson = json.encodeToString(stuffs)
         stuffsDataSource.saveRecommendedStuffsOf(category, stuffsJson)
     }
 }

@@ -1,11 +1,8 @@
 package org.care.packie.ui.component.stuff
 
-import android.util.Log
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -29,7 +26,7 @@ import org.care.packie.utils.ui.bounceClickable
 fun ToggleableStuff(
     modifier: Modifier = Modifier,
     isChecked: Boolean = false,
-    onToggle: (Boolean)-> Unit = {},
+    onToggle: (String)-> Unit = {},
     itemName: String
 ) {
     var isCheck by remember { mutableStateOf(isChecked) }
@@ -38,8 +35,7 @@ fun ToggleableStuff(
         modifier = modifier
             .bounceClickable {
                 isCheck = !isCheck
-                onToggle(isCheck)
-                Log.d("toggle", isCheck.toString())
+                onToggle(itemName)
             }
             .clip(RoundedCornerShape(8.dp))
             .background(

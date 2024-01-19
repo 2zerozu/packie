@@ -22,6 +22,6 @@ internal abstract class RepositoryModule {
     @Binds
     @Singleton
     abstract fun bindStuffsRepository(
-        localStuffsRepository: CategoryRepositoryImpl
+        localStuffsRepository: LocalStuffsRepository
     ): StuffsRepository
 }
