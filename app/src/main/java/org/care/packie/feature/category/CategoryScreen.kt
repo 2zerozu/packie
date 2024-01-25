@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -14,7 +13,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -25,7 +23,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.lerp
-import androidx.hilt.navigation.compose.hiltViewModel
 import me.onebone.toolbar.CollapsingToolbarScaffold
 import me.onebone.toolbar.ScrollStrategy
 import me.onebone.toolbar.rememberCollapsingToolbarScaffoldState
@@ -42,28 +39,6 @@ import org.care.packie.ui.theme.PackieTheme
 private const val MIN_CATEGORY_SIZE = 5
 private const val MIN_SPACER_SIZE = 4
 private const val MAX_SPACER_SIZE = 80
-
-@Composable
-fun CategoryScreen(
-    viewModel: CategoryViewModel = hiltViewModel()
-) {
-    viewModel.getCategories()
-
-    val categories by viewModel.categories.collectAsState()
-
-    PackieTheme {
-        Box(modifier = Modifier.fillMaxSize()) {
-            CategoryScreen(
-                categories = categories,
-                onClickAddCategory = { viewModel.addCategory(it) },
-                onClickEditCategory = { old, new ->
-                    viewModel.editCategory(old, new)
-                },
-                onClickDeleteCategory = { viewModel.deleteCategory(it) }
-            )
-        }
-    }
-}
 
 @Composable
 fun CategoryScreen(
