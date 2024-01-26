@@ -30,10 +30,10 @@ private val ALREADY_REMOVED = "이미 삭제된 물건이에요"
 
 @Composable
 fun StuffsScreenRoot(
+    category: String,
     viewModel: StuffsViewModel = hiltViewModel(),
     navigateToCategory: () -> Unit = {}
 ) {
-    val category = "출근"
     val state by viewModel.uiState.collectAsState()
     val scope = rememberCoroutineScope()
     var isAddStuffTextFieldDialogOpen by remember {
@@ -161,6 +161,8 @@ fun ShowDoneDialog(
 @Composable
 fun StuffsScreenRootPreview() {
     PackieTheme {
-        StuffsScreenRoot()
+        StuffsScreenRoot(
+            category = "출근"
+        )
     }
 }
