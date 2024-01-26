@@ -6,11 +6,13 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
@@ -57,7 +59,7 @@ fun TextFieldDialog(
 
         Box(
             modifier = Modifier
-                .clip(RoundedCornerShape(size = 8.dp))
+                .clip(RoundedCornerShape(size = 12.dp))
                 .background(color = PackieDesignSystem.colors.white)
                 .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 8.dp)
                 .imePadding()
@@ -66,6 +68,7 @@ fun TextFieldDialog(
                 modifier = Modifier.align(Alignment.Center)
             ) {
                 TextFieldDialogTitle(title = type.title)
+                Spacer(modifier = Modifier.size(8.dp))
                 TextFieldDialogTextField(
                     textFieldValue = textFieldValue,
                     onValueChange = { newValue -> textFieldValue = newValue },
@@ -79,6 +82,7 @@ fun TextFieldDialog(
                         .align(Alignment.End)
                         .offset(y = 6.dp),
                 )
+                Spacer(modifier = Modifier.size(12.dp))
                 TextFieldDialogActionButtons(
                     confirm = type.confirm,
                     onDismiss = onDismiss,
@@ -148,6 +152,7 @@ fun TextFieldDialogTextField(
             .fillMaxWidth()
             .offset(y = 6.dp)
     )
+    Spacer(modifier = Modifier.size(4.dp))
     Box(
         modifier = Modifier
             .fillMaxWidth()
