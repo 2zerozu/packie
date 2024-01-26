@@ -13,10 +13,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.launch
-import org.care.packie.PackieNavDestination
 import org.care.packie.ui.DoneDialogType
 import org.care.packie.ui.TextFieldDialogType
 import org.care.packie.ui.component.dialog.DoneDialog
@@ -25,8 +22,8 @@ import org.care.packie.ui.component.stuff.rememberEditModeState
 import org.care.packie.ui.theme.PackieTheme
 import org.care.packie.utils.ui.LoadingScreen
 
-private val ALREADY_ADDED = "이미 추가된 물건이에요"
-private val ALREADY_REMOVED = "이미 삭제된 물건이에요"
+private const val ALREADY_ADDED = "이미 추가된 물건이에요"
+private const val ALREADY_REMOVED = "이미 삭제된 물건이에요"
 
 @Composable
 fun StuffsScreenRoot(

@@ -46,7 +46,7 @@ fun StuffsContent(
                         modifier = modifier
                             .fillMaxWidth()
                             .align(Alignment.Center),
-                        text = "수정하기를 눌러 준비물을 추가해주세요!",
+                        text = "[수정하기]를 눌러 준비물을 추가해 주세요!",
                         style = PackieDesignSystem.typography.subTitle,
                         color = PackieDesignSystem.colors.white,
                         textAlign = TextAlign.Center

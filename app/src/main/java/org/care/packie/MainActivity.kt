@@ -3,11 +3,8 @@ package org.care.packie
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
-import androidx.navigation.NavGraph
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
@@ -16,10 +13,9 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import dagger.hilt.android.AndroidEntryPoint
-import org.care.packie.feature.category.CategoryScreen
+import org.care.packie.feature.category.CategoryScreenRoot
 import org.care.packie.feature.stuffs.StuffsScreenRoot
 import org.care.packie.ui.theme.PackieTheme
-import java.lang.IllegalArgumentException
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -48,11 +44,15 @@ private fun PackieApp() {
 
 private fun NavGraphBuilder.packingGraph(navController: NavController) {
     navigation(
-        startDestination = PackieNavDestination.StuffsScreen.route,
+        startDestination = PackieNavDestination.CategoryScreen.route,
         route = "main"
     ) {
         composable(PackieNavDestination.CategoryScreen.route) {
-            CategoryScreen()
+            CategoryScreenRoot(
+                navigateToStuff = { category ->
+                    navController.navigate("stuffs/$category")
+                }
+            )
         }
         composable(
             route = PackieNavDestination.StuffsScreen.route,
@@ -85,10 +85,6 @@ sealed class PackieNavDestination(
     object StuffsScreen : PackieNavDestination(
         route = "stuffs/{category}"
     ) {
-        val categoryNavArgumentKey = "category"
-
-        fun NavController.navigateToStuff(category: String) {
-            this.navigate("stuffs/${category}")
-        }
+        const val categoryNavArgumentKey = "category"
     }
 }

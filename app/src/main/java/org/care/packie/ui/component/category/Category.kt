@@ -28,7 +28,8 @@ import org.care.packie.ui.theme.PackieDesignSystem
 fun Category(
     category: String,
     onClickEdit: () -> Unit,
-    onClickDelete: () -> Unit
+    onClickDelete: () -> Unit,
+    onClickCategory: () -> Unit
 ) {
     var isPopupOpen by remember { mutableStateOf(false) }
 
@@ -37,6 +38,7 @@ fun Category(
             .clip(RoundedCornerShape(size = 8.dp))
             .background(color = PackieDesignSystem.colors.backgroundBlackAlpha50)
             .fillMaxWidth()
+            .clickable(onClick = onClickCategory)
             .padding(vertical = 30.dp),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
@@ -78,5 +80,5 @@ fun Category(
 @Preview(showBackground = true)
 @Composable
 fun PackingCategoryPreview() {
-    Category("출근", {}, {})
+    Category("출근", {}, {}, {})
 }

@@ -11,7 +11,8 @@ import org.care.packie.ui.theme.PackieTheme
 
 @Composable
 fun CategoryScreenRoot(
-    viewModel: CategoryViewModel = hiltViewModel()
+    viewModel: CategoryViewModel = hiltViewModel(),
+    navigateToStuff: (String) -> Unit = {}
 ) {
     viewModel.getCategories()
 
@@ -26,6 +27,7 @@ fun CategoryScreenRoot(
                     viewModel.editCategory(old, new)
                 },
                 onClickDeleteCategory = { viewModel.deleteCategory(it) },
+                onClickCategory = { navigateToStuff(it) }
             )
         }
     }
