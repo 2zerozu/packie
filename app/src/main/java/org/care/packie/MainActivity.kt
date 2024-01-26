@@ -9,9 +9,11 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph
 import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import androidx.navigation.navigation
 import dagger.hilt.android.AndroidEntryPoint
 import org.care.packie.feature.category.CategoryScreen
@@ -51,10 +53,17 @@ private fun NavGraphBuilder.packingGraph(navController: NavController) {
         composable(PackieNavDestination.CategoryScreen.route) {
             CategoryScreen()
         }
-        composable(PackieNavDestination.StuffsScreen.route) {
+        composable(
+            route = PackieNavDestination.StuffsScreen.route,
+            arguments = listOf(
+                navArgument(PackieNavDestination.StuffsScreen.categoryNavArgumentKey) {
+                    type = NavType.StringType
+                }
+            )
+        ) {
             StuffsScreenRoot(
                 navigateToCategory = {
-                    navController.navigate(PackieNavDestination.CategoryScreen.route)
+                    navController.popBackStack()
                 }
             )
         }
@@ -68,6 +77,8 @@ sealed class PackieNavDestination(
         route = "category"
     )
     object StuffsScreen: PackieNavDestination(
-        route = "stuffs"
-    )
+        route = "stuffs/{category}"
+    ) {
+        val categoryNavArgumentKey = "category"
+    }
 }
