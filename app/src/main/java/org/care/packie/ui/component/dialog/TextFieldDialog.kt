@@ -68,7 +68,7 @@ fun TextFieldDialog(
                 modifier = Modifier.align(Alignment.Center)
             ) {
                 TextFieldDialogTitle(title = type.title)
-                Spacer(modifier = Modifier.size(8.dp))
+                Spacer(modifier = Modifier.size(16.dp))
                 TextFieldDialogTextField(
                     textFieldValue = textFieldValue,
                     onValueChange = { newValue -> textFieldValue = newValue },
