@@ -1,6 +1,5 @@
 package org.care.packie.utils.ui.scroll
 
-import android.util.Log
 import androidx.compose.foundation.gestures.ScrollableState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Stable
