@@ -86,5 +86,9 @@ sealed class PackieNavDestination(
         route = "stuffs/{category}"
     ) {
         val categoryNavArgumentKey = "category"
+
+        fun NavController.navigateToStuff(category: String) {
+            this.navigate("stuffs/${category}")
+        }
     }
 }
