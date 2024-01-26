@@ -19,6 +19,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import org.care.packie.feature.category.CategoryScreen
 import org.care.packie.feature.stuffs.StuffsScreenRoot
 import org.care.packie.ui.theme.PackieTheme
+import java.lang.IllegalArgumentException
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
@@ -60,8 +61,12 @@ private fun NavGraphBuilder.packingGraph(navController: NavController) {
                     type = NavType.StringType
                 }
             )
-        ) {
+        ) { entry ->
+            val category = entry.arguments
+                ?.getString(PackieNavDestination.StuffsScreen.categoryNavArgumentKey)
+                ?: throw IllegalArgumentException("category is required")
             StuffsScreenRoot(
+                category = category,
                 navigateToCategory = {
                     navController.popBackStack()
                 }
@@ -73,10 +78,11 @@ private fun NavGraphBuilder.packingGraph(navController: NavController) {
 sealed class PackieNavDestination(
     val route: String
 ) {
-    object CategoryScreen: PackieNavDestination(
+    object CategoryScreen : PackieNavDestination(
         route = "category"
     )
-    object StuffsScreen: PackieNavDestination(
+
+    object StuffsScreen : PackieNavDestination(
         route = "stuffs/{category}"
     ) {
         val categoryNavArgumentKey = "category"
