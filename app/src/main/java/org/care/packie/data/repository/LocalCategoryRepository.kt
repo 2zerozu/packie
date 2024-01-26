@@ -4,7 +4,7 @@ import org.care.packie.data.source.LocalCategoryDataSource
 import org.care.packie.domain.CategoryRepository
 import javax.inject.Inject
 
-class CategoryRepositoryImpl @Inject constructor(
+class LocalCategoryRepository @Inject constructor(
     private val localCategoryDataSource: LocalCategoryDataSource
 ) : CategoryRepository {
     override fun getCategories(): Set<String> = localCategoryDataSource.categories
