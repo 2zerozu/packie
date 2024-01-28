@@ -43,7 +43,7 @@ private const val MAX_SPACER_SIZE = 80
 
 @Composable
 fun CategoryScreen(
-    categories: Set<String>,
+    categories: List<String>,
     onClickAddCategory: (String) -> Unit = {},
     onClickEditCategory: (String, String) -> Unit = { _, _ -> },
     onClickDeleteCategory: (String) -> Unit = {},
@@ -173,6 +173,6 @@ fun CategoryScreen(
 @Composable
 fun CategoryScreenPreview() {
     PackieTheme {
-        CategoryScreen(setOf())
+        CategoryScreen(listOf())
     }
 }

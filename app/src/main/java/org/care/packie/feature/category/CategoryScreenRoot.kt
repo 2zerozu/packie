@@ -26,7 +26,7 @@ fun CategoryScreenRoot(
                 onClickEditCategory = { old, new ->
                     viewModel.editCategory(old, new)
                 },
-                onClickDeleteCategory = { viewModel.deleteCategory(it) },
+                onClickDeleteCategory = { viewModel.removeCategory(it) },
                 onClickCategory = { navigateToStuff(it) }
             )
         }

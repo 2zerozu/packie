@@ -14,7 +14,7 @@ class CategoryViewModel @Inject constructor(
     private val categoryRepository: CategoryRepository
 ) : ViewModel() {
 
-    private val _categories = MutableStateFlow<Set<String>>(emptySet())
+    private val _categories = MutableStateFlow<List<String>>(emptyList())
     val categories = _categories.asStateFlow()
 
     fun addCategory(category: String) {
@@ -38,9 +38,9 @@ class CategoryViewModel @Inject constructor(
         }
     }
 
-    fun deleteCategory(category: String) {
+    fun removeCategory(category: String) {
         viewModelScope.launch {
-            categoryRepository.deleteCategory(category)
+            categoryRepository.removeCategory(category)
             getCategories()
         }
     }
