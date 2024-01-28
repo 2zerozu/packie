@@ -152,8 +152,8 @@ fun CategoryScreen(
                         else -> onClickEditCategory(categoryName, it)
                     }
                     isTextFieldDialogOpen = false
+                    categoryName = ""
                 }
-                categoryName = ""
             },
             onDismiss = {
                 isTextFieldDialogOpen = false
