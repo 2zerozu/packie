@@ -21,6 +21,7 @@ import org.care.packie.utils.ui.scroll.rememberPackieTopBarState
 fun StuffsScreen(
     category: String,
     snackBarHostState: SnackbarHostState = remember { SnackbarHostState() },
+    isEmpty: Boolean = false,
     isEditMode: Boolean = false,
     currentStuffs: Map<String, Boolean>,
     onClickToggle: (String) -> Unit = {},
@@ -61,6 +62,7 @@ fun StuffsScreen(
         bottomBar = {
             StuffsStickyBottom(
                 isEditMode = isEditMode,
+                isEmpty = isEmpty,
                 onClickEdit = enableEditMode,
                 onClickUpdate = {
                     onClickUpdate(category)

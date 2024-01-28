@@ -15,6 +15,7 @@ import org.care.packie.ui.component.common.PackieButton
 @Composable
 fun StuffsStickyBottom(
     modifier: Modifier = Modifier,
+    isEmpty: Boolean = false,
     isEditMode: Boolean,
     onClickEdit: () -> Unit = {},
     onClickUpdate: () -> Unit = {}
@@ -30,7 +31,9 @@ fun StuffsStickyBottom(
             text = if (isEditMode) {
                 stringResource(id = R.string.stuffs_update)
             } else {
-                stringResource(id = R.string.stuffs_edit)
+                stringResource(
+                    id = if (isEmpty) R.string.stuff_item_add_button_text else R.string.stuffs_edit
+                )
             }
         )
     }
