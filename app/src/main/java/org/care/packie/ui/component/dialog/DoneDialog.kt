@@ -5,8 +5,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -37,14 +39,15 @@ fun DoneDialog(
             modifier = Modifier
                 .clip(RoundedCornerShape(size = 8.dp))
                 .background(color = PackieDesignSystem.colors.white)
-                .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 8.dp)
+                .padding(start = 16.dp, end = 16.dp, top = 24.dp, bottom = 8.dp)
         ) {
             Column(
                 modifier = Modifier.align(Alignment.Center)
             ) {
                 DoneDialogTitle(type)
+                Spacer(Modifier.size(8.dp))
                 DoneDialogContent(type)
-
+                Spacer(Modifier.size(8.dp))
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.End
