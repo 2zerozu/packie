@@ -47,7 +47,7 @@ fun CategoryScreen(
     onClickAddCategory: (String) -> Unit = {},
     onClickEditCategory: (String, String) -> Unit = { _, _ -> },
     onClickDeleteCategory: (String) -> Unit = {},
-    onClickCategory: (String) -> Unit = {}
+    onClickCategory: (String) -> Unit = {},
 ) {
     val state = rememberCollapsingToolbarScaffoldState()
     val isCollapseEnabled = categories.size >= MIN_CATEGORY_SIZE
