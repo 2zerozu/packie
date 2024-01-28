@@ -1,5 +1,7 @@
 package org.care.packie.feature.category
 
+import android.content.Context
+import android.widget.Toast
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
@@ -14,12 +16,13 @@ import org.care.packie.utils.ui.LoadingScreen
 
 @Composable
 fun CategoryScreenRoot(
+    context: Context,
     viewModel: CategoryViewModel = hiltViewModel(),
     navigateToStuff: (String) -> Unit = {}
 ) {
     val state by viewModel.uiState.collectAsState()
 
-    var categories by remember { mutableStateOf(emptyList<String>()) }
+    var categories by remember { mutableStateOf(emptySet<String>()) }
     var isLoading by remember { mutableStateOf(false) }
 
     when (state) {
@@ -37,12 +40,11 @@ fun CategoryScreenRoot(
     Box(modifier = Modifier.fillMaxSize()) {
         CategoryScreen(
             categories = categories,
-            onClickAddCategory = { viewModel.addCategory(it) },
-            onClickEditCategory = { old, new ->
-                viewModel.editCategory(old, new)
-            },
-            onClickDeleteCategory = { viewModel.removeCategory(it) },
+            onClickAddCategory = viewModel::addCategory,
+            onClickEditCategory = viewModel::editCategory,
+            onClickDeleteCategory = viewModel::removeCategory,
             onClickCategory = { navigateToStuff(it) },
+            context= context
         )
 
         LoadingScreen(

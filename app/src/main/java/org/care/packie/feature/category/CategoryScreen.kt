@@ -1,5 +1,7 @@
 package org.care.packie.feature.category
 
+import android.content.Context
+import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.foundation.layout.Arrangement
@@ -43,11 +45,12 @@ private const val MAX_SPACER_SIZE = 80
 
 @Composable
 fun CategoryScreen(
-    categories: List<String>,
+    categories: Set<String>,
     onClickAddCategory: (String) -> Unit = {},
     onClickEditCategory: (String, String) -> Unit = { _, _ -> },
     onClickDeleteCategory: (String) -> Unit = {},
     onClickCategory: (String) -> Unit = {},
+    context: Context
 ) {
     val state = rememberCollapsingToolbarScaffoldState()
     val isCollapseEnabled = categories.size >= MIN_CATEGORY_SIZE
@@ -141,9 +144,15 @@ fun CategoryScreen(
             content = categoryName,
             type = dialogType,
             onConfirmation = {
-                if (dialogType == TextFieldDialogType.ADD_CATEGORY) onClickAddCategory(it)
-                else onClickEditCategory(categoryName, it)
-                isTextFieldDialogOpen = false
+                if (categories.contains(it)) {
+                    Toast.makeText(context, "이미 추가된 카테고리예요", Toast.LENGTH_SHORT).show()
+                } else {
+                    when (dialogType) {
+                        TextFieldDialogType.ADD_CATEGORY -> onClickAddCategory(it)
+                        else -> onClickEditCategory(categoryName, it)
+                    }
+                    isTextFieldDialogOpen = false
+                }
                 categoryName = ""
             },
             onDismiss = {
@@ -173,6 +182,6 @@ fun CategoryScreen(
 @Composable
 fun CategoryScreenPreview() {
     PackieTheme {
-        CategoryScreen(listOf())
+        //CategoryScreen(setOf())
     }
 }

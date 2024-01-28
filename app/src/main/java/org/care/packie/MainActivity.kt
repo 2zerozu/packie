@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
@@ -49,6 +50,7 @@ private fun NavGraphBuilder.packingGraph(navController: NavController) {
     ) {
         composable(PackieNavDestination.CategoryScreen.route) {
             CategoryScreenRoot(
+                context = LocalContext.current,
                 navigateToStuff = { category ->
                     navController.navigate("stuffs/$category")
                 }

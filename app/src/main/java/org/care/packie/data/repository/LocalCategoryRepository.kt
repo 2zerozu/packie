@@ -7,7 +7,7 @@ import javax.inject.Inject
 class LocalCategoryRepository @Inject constructor(
     private val categoryDataSource: CategoryDataSource
 ) : CategoryRepository {
-    override suspend fun getCategories(): List<String> = categoryDataSource.getCategories()
+    override suspend fun getCategories(): Set<String> = categoryDataSource.getCategories()
 
     override suspend fun addCategory(category: String) = categoryDataSource.addCategory(category)
 

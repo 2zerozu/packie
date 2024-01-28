@@ -12,10 +12,10 @@ class LocalCategoryDataSource @Inject constructor(
     private val prefs: SharedPreferences,
     private val json: Json
 ) : CategoryDataSource {
-    override suspend fun getCategories(): List<String> = withContext(Dispatchers.IO) {
+    override suspend fun getCategories(): Set<String> = withContext(Dispatchers.IO) {
         val categoriesJson = prefs.getString(CATEGORIES, null)
-        return@withContext categoriesJson?.let { json.decodeFromString<List<String>>(it) }
-            ?: emptyList()
+        return@withContext categoriesJson?.let { json.decodeFromString<Set<String>>(it) }
+            ?: emptySet()
     }
 
     override suspend fun addCategory(category: String) = withContext(Dispatchers.IO) {
