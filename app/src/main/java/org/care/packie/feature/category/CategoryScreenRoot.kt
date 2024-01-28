@@ -1,7 +1,5 @@
 package org.care.packie.feature.category
 
-import android.content.Context
-import android.widget.Toast
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
@@ -16,7 +14,6 @@ import org.care.packie.utils.ui.LoadingScreen
 
 @Composable
 fun CategoryScreenRoot(
-    context: Context,
     viewModel: CategoryViewModel = hiltViewModel(),
     navigateToStuff: (String) -> Unit = {}
 ) {
@@ -44,7 +41,6 @@ fun CategoryScreenRoot(
             onClickEditCategory = viewModel::editCategory,
             onClickDeleteCategory = viewModel::removeCategory,
             onClickCategory = { navigateToStuff(it) },
-            context= context
         )
 
         LoadingScreen(

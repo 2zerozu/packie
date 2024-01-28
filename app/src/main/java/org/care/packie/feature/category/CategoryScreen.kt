@@ -1,6 +1,5 @@
 package org.care.packie.feature.category
 
-import android.content.Context
 import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
@@ -21,6 +20,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -50,7 +50,6 @@ fun CategoryScreen(
     onClickEditCategory: (String, String) -> Unit = { _, _ -> },
     onClickDeleteCategory: (String) -> Unit = {},
     onClickCategory: (String) -> Unit = {},
-    context: Context
 ) {
     val state = rememberCollapsingToolbarScaffoldState()
     val isCollapseEnabled = categories.size >= MIN_CATEGORY_SIZE
@@ -59,6 +58,7 @@ fun CategoryScreen(
     var dialogType by remember { mutableStateOf(TextFieldDialogType.ADD_CATEGORY) }
     var isTextFieldDialogOpen by remember { mutableStateOf(false) }
     var isDoneDialogOpen by remember { mutableStateOf(false) }
+    val context = LocalContext.current
 
     Column {
         CollapsingToolbarScaffold(
@@ -182,6 +182,6 @@ fun CategoryScreen(
 @Composable
 fun CategoryScreenPreview() {
     PackieTheme {
-        //CategoryScreen(setOf())
+        CategoryScreen(setOf())
     }
 }

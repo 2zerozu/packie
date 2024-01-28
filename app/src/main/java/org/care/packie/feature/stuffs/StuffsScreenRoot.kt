@@ -74,6 +74,7 @@ fun StuffsScreenRoot(
     StuffsScreen(
         category = category,
         snackBarHostState = snackBarHostState,
+        isEmpty = stuffs.isEmpty(),
         isEditMode = editMode.isEditMode,
         currentStuffs = stuffs,
         onClickToggle = viewModel::checkStuffs,
