@@ -33,13 +33,14 @@ import org.care.packie.R
 import org.care.packie.ui.DoneDialogType
 import org.care.packie.ui.TextFieldDialogType
 import org.care.packie.ui.component.category.Category
+import org.care.packie.ui.component.category.SettingPopupMenu
 import org.care.packie.ui.component.common.PackieButton
 import org.care.packie.ui.component.dialog.DoneDialog
 import org.care.packie.ui.component.dialog.TextFieldDialog
 import org.care.packie.ui.theme.PackieDesignSystem
 import org.care.packie.ui.theme.PackieTheme
 
-private const val MIN_CATEGORY_SIZE = 5
+// private const val MIN_CATEGORY_SIZE = 4
 private const val MIN_SPACER_SIZE = 4
 private const val MAX_SPACER_SIZE = 80
 
@@ -50,9 +51,13 @@ fun CategoryScreen(
     onClickEditCategory: (String, String) -> Unit = { _, _ -> },
     onClickDeleteCategory: (String) -> Unit = {},
     onClickCategory: (String) -> Unit = {},
+    onClickPrivacyPolicy: () -> Unit = {},
+    onClickTerms: () -> Unit = {},
+    onClickContactUs: () -> Unit = {},
+    onClickDeveloperInfo: () -> Unit = {}
 ) {
     val state = rememberCollapsingToolbarScaffoldState()
-    val isCollapseEnabled = categories.size >= MIN_CATEGORY_SIZE
+    //val isCollapseEnabled = categories.size >= MIN_CATEGORY_SIZE
     val toolbarStateProgress = state.toolbarState.progress
     var categoryName by remember { mutableStateOf("") }
     var dialogType by remember { mutableStateOf(TextFieldDialogType.ADD_CATEGORY) }
@@ -61,16 +66,28 @@ fun CategoryScreen(
     val context = LocalContext.current
 
     Column {
+        Box(
+            modifier = Modifier
+                .padding(top = 8.dp, end = 8.dp)
+                .align(Alignment.End)
+        ) {
+            SettingPopupMenu(
+                onClickPrivacyPolicy = onClickPrivacyPolicy,
+                onClickTerms = onClickTerms,
+                onClickContactUs = onClickContactUs,
+                onClickDeveloperInfo = onClickDeveloperInfo
+            )
+        }
         CollapsingToolbarScaffold(
             modifier = Modifier.weight(1f),
             state = state,
-            enabled = isCollapseEnabled,
+            //enabled = isCollapseEnabled,
             scrollStrategy = ScrollStrategy.ExitUntilCollapsed,
             toolbar = {
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(130.dp)
+                        .height(80.dp)
                         .pin()
                 )
                 Text(

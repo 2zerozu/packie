@@ -15,7 +15,7 @@ import org.care.packie.utils.ui.LoadingScreen
 @Composable
 fun CategoryScreenRoot(
     viewModel: CategoryViewModel = hiltViewModel(),
-    navigateToStuff: (String) -> Unit = {}
+    navigateToStuff: (String) -> Unit = {},
 ) {
     val state by viewModel.uiState.collectAsState()
 
@@ -41,6 +41,10 @@ fun CategoryScreenRoot(
             onClickEditCategory = viewModel::editCategory,
             onClickDeleteCategory = viewModel::removeCategory,
             onClickCategory = { navigateToStuff(it) },
+            onClickPrivacyPolicy = {},
+            onClickTerms = {},
+            onClickContactUs = {},
+            onClickDeveloperInfo = {}
         )
 
         LoadingScreen(
