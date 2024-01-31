@@ -14,7 +14,7 @@ android {
         applicationId = "org.care.packie"
         minSdk = 28
         targetSdk = 34
-        versionCode = 2
+        versionCode = 3
         versionName = "0.0.1"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
