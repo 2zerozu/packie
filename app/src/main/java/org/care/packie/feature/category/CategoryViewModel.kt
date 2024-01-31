@@ -13,9 +13,8 @@ import javax.inject.Inject
 class CategoryViewModel @Inject constructor(
     private val categoryRepository: CategoryRepository
 ) : ViewModel() {
-
-    private val _categories = MutableStateFlow<Set<String>>(emptySet())
-    val categories = _categories.asStateFlow()
+    private val _uiState = MutableStateFlow<CategoryUiState>(CategoryUiState.Loading)
+    val uiState = _uiState.asStateFlow()
 
     fun addCategory(category: String) {
         viewModelScope.launch {
@@ -26,8 +25,11 @@ class CategoryViewModel @Inject constructor(
 
     fun getCategories() {
         viewModelScope.launch {
-            val localCategories = categoryRepository.getCategories()
-            _categories.emit(localCategories)
+            _uiState.value = CategoryUiState.Loading
+            val categories = categoryRepository.getCategories()
+            _uiState.emit(
+                CategoryUiState.Success(categories)
+            )
         }
     }
 
@@ -38,9 +40,9 @@ class CategoryViewModel @Inject constructor(
         }
     }
 
-    fun deleteCategory(category: String) {
+    fun removeCategory(category: String) {
         viewModelScope.launch {
-            categoryRepository.deleteCategory(category)
+            categoryRepository.removeCategory(category)
             getCategories()
         }
     }

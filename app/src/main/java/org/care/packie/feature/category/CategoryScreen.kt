@@ -1,5 +1,6 @@
 package org.care.packie.feature.category
 
+import android.widget.Toast
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.foundation.layout.Arrangement
@@ -19,6 +20,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -47,7 +49,7 @@ fun CategoryScreen(
     onClickAddCategory: (String) -> Unit = {},
     onClickEditCategory: (String, String) -> Unit = { _, _ -> },
     onClickDeleteCategory: (String) -> Unit = {},
-    onClickCategory: (String) -> Unit = {}
+    onClickCategory: (String) -> Unit = {},
 ) {
     val state = rememberCollapsingToolbarScaffoldState()
     val isCollapseEnabled = categories.size >= MIN_CATEGORY_SIZE
@@ -56,6 +58,7 @@ fun CategoryScreen(
     var dialogType by remember { mutableStateOf(TextFieldDialogType.ADD_CATEGORY) }
     var isTextFieldDialogOpen by remember { mutableStateOf(false) }
     var isDoneDialogOpen by remember { mutableStateOf(false) }
+    val context = LocalContext.current
 
     Column {
         CollapsingToolbarScaffold(
@@ -141,10 +144,16 @@ fun CategoryScreen(
             content = categoryName,
             type = dialogType,
             onConfirmation = {
-                if (dialogType == TextFieldDialogType.ADD_CATEGORY) onClickAddCategory(it)
-                else onClickEditCategory(categoryName, it)
-                isTextFieldDialogOpen = false
-                categoryName = ""
+                if (categories.contains(it)) {
+                    Toast.makeText(context, "이미 추가된 카테고리예요", Toast.LENGTH_SHORT).show()
+                } else {
+                    when (dialogType) {
+                        TextFieldDialogType.ADD_CATEGORY -> onClickAddCategory(it)
+                        else -> onClickEditCategory(categoryName, it)
+                    }
+                    isTextFieldDialogOpen = false
+                    categoryName = ""
+                }
             },
             onDismiss = {
                 isTextFieldDialogOpen = false

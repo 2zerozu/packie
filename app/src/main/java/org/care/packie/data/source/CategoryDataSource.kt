@@ -1,8 +1,11 @@
-package org.care.packie.domain
+package org.care.packie.data.source
 
-interface CategoryRepository {
+interface CategoryDataSource {
     suspend fun getCategories(): Set<String>
+
     suspend fun addCategory(category: String)
+
     suspend fun removeCategory(category: String)
+
     suspend fun editCategory(oldCategory: String, newCategory: String)
 }

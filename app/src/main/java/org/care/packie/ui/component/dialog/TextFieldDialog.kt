@@ -61,7 +61,7 @@ fun TextFieldDialog(
             modifier = Modifier
                 .clip(RoundedCornerShape(size = 12.dp))
                 .background(color = PackieDesignSystem.colors.white)
-                .padding(start = 16.dp, end = 16.dp, top = 16.dp, bottom = 8.dp)
+                .padding(start = 16.dp, end = 16.dp, top = 24.dp, bottom = 8.dp)
                 .imePadding()
         ) {
             Column(
