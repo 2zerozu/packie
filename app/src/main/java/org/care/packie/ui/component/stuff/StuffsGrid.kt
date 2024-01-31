@@ -8,10 +8,7 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import org.care.packie.StuffsPreviewProvider
-import org.care.packie.ui.theme.PackieTheme
 
 @Composable
 fun StuffsGrid(
@@ -45,7 +42,7 @@ fun MutableStuffsGrid(
     modifier: Modifier = Modifier,
     state: LazyGridState = rememberLazyGridState(),
     stuffs: Map<String, Boolean>,
-    onRemove: (String)-> Unit = {},
+    onRemove: (String) -> Unit = {},
     onAdd: () -> Unit = {}
 ) {
     LazyVerticalGrid(
@@ -69,25 +66,5 @@ fun MutableStuffsGrid(
                 onAddClick = onAdd
             )
         }
-    }
-}
-
-@Preview
-@Composable
-fun StuffsGridPreview() {
-    PackieTheme {
-        StuffsGrid(
-            stuffs = StuffsPreviewProvider.previewMockData
-        )
-    }
-}
-
-@Preview
-@Composable
-fun MutableStuffsGridPreview() {
-    PackieTheme {
-        MutableStuffsGrid(
-            stuffs = StuffsPreviewProvider.previewMockData
-        )
     }
 }
