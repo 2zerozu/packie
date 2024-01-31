@@ -9,12 +9,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import org.care.packie.R
 
-val NotoSansKrBlack = FontFamily(Font(R.font.notosanskr_black, FontWeight.Black))
-val NotoSansKrBold = FontFamily(Font(R.font.notosanskr_bold, FontWeight.Bold))
-val NotoSansKrLight = FontFamily(Font(R.font.notosanskr_light, FontWeight.Light))
 val NotoSansKrMedium = FontFamily(Font(R.font.notosanskr_medium, FontWeight.Medium))
-val NotoSansKrRegular = FontFamily(Font(R.font.notosanskr_regular, FontWeight.Normal))
-val NotoSansKrThin = FontFamily(Font(R.font.notosanskr_thin, FontWeight.Thin))
 
 fun packieTypography() = PackieTypography(
     title = TextStyle(
