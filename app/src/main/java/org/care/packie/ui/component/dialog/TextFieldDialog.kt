@@ -20,6 +20,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -56,6 +57,11 @@ fun TextFieldDialog(
         onDismissRequest = onDismiss
     ) {
         var textFieldValue by remember { mutableStateOf(TextFieldValue(content)) }
+        val isConfirmButtonEnabled = remember { mutableStateOf(textFieldValue.text.isNotEmpty()) }
+
+        LaunchedEffect(textFieldValue.text) {
+            isConfirmButtonEnabled.value = textFieldValue.text.isNotEmpty()
+        }
 
         Box(
             modifier = Modifier
@@ -88,7 +94,8 @@ fun TextFieldDialog(
                     onDismiss = onDismiss,
                     onConfirmation = {
                         onConfirmation(textFieldValue.text)
-                    }
+                    },
+                    isConfirmButtonEnabled = isConfirmButtonEnabled.value
                 )
             }
         }
@@ -179,7 +186,8 @@ fun TextFieldDialogTextFieldLength(
 fun TextFieldDialogActionButtons(
     confirm: String,
     onDismiss: () -> Unit,
-    onConfirmation: () -> Unit
+    onConfirmation: () -> Unit,
+    isConfirmButtonEnabled: Boolean
 ) {
     Row(
         modifier = Modifier.fillMaxWidth(),
@@ -190,7 +198,8 @@ fun TextFieldDialogActionButtons(
         )
         ConfirmButton(
             confirm = confirm,
-            onConfirmation = onConfirmation
+            onConfirmation = onConfirmation,
+            isEnabled = isConfirmButtonEnabled
         )
     }
 }
@@ -217,20 +226,24 @@ fun DismissButton(
 @Composable
 fun ConfirmButton(
     confirm: String,
-    onConfirmation: () -> Unit
+    onConfirmation: () -> Unit,
+    isEnabled: Boolean
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
 
     TextButton(
         onClick = {
-            onConfirmation()
-            keyboardController?.hide()
-        }
+            if (isEnabled) {
+                onConfirmation()
+                keyboardController?.hide()
+            }
+        },
+        enabled = isEnabled
     ) {
         Text(
             text = confirm,
             style = PackieDesignSystem.typography.subTitle,
-            color = PackieDesignSystem.colors.purple,
+            color = if (isEnabled) PackieDesignSystem.colors.purple else PackieDesignSystem.colors.grayCancel,
             fontWeight = FontWeight.Bold
         )
     }
