@@ -223,6 +223,9 @@ obj/
 .idea/jarRepositories.xml
 .idea/navEditor.xml
 
+keystore
+*.pepk
+
 # Legacy Eclipse project files
 .classpath
 .project
@@ -257,5 +260,3 @@ fabric.properties
 !/gradle/wrapper/gradle-wrapper.jar
 
 # End of https://www.toptal.com/developers/gitignore/api/android,androidstudio,kotlin,java,macos,windows
-
-keystore
