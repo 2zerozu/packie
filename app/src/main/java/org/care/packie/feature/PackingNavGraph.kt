@@ -1,10 +1,12 @@
 package org.care.packie.feature
 
+import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import android.widget.Toast
 import androidx.activity.compose.BackHandler
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableLongStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
@@ -50,8 +52,34 @@ private fun NavGraphBuilder.categoryComposable(
                 navController.navigate(
                     route = PackingNavContract.Stuffs.getRoute(category)
                 )
+            },
+            onClickPrivacyPolicy = {
+                context.startActionViewActivity(
+                    webUri = PackingNavContract.Url.privacyPolicyUri
+                )
+            },
+            onClickContactUs = {
+                context.startActionViewActivity(
+                    webUri = PackingNavContract.Url.contactUsUri
+                )
+            },
+            onClickTerms = {
+                context.startActionViewActivity(
+                    webUri = PackingNavContract.Url.termsUri
+                )
+            },
+            onClickDeveloperInfo = {
+                context.startActionViewActivity(
+                    webUri = PackingNavContract.Url.developerInfoUri
+                )
             }
         )
+    }
+}
+
+private fun Context.startActionViewActivity(webUri: Uri) {
+    Intent(Intent.ACTION_VIEW, webUri).also {
+        startActivity(it)
     }
 }
 

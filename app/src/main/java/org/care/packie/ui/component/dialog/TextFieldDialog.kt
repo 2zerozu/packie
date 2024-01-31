@@ -93,7 +93,7 @@ fun TextFieldDialog(
                     confirm = type.confirm,
                     onDismiss = onDismiss,
                     onConfirmation = {
-                        onConfirmation(textFieldValue.text)
+                        onConfirmation(textFieldValue.text.replace("\n", ""))
                     },
                     isConfirmButtonEnabled = isConfirmButtonEnabled.value
                 )
@@ -131,8 +131,10 @@ fun TextFieldDialogTextField(
         keyboardOptions = KeyboardOptions(imeAction = ImeAction.Done),
         keyboardActions = KeyboardActions(
             onDone = {
-                onConfirmation(textFieldValue.text)
-                keyboardController?.hide()
+                if (textFieldValue.text.isNotEmpty()) {
+                    onConfirmation(textFieldValue.text.replace("\n", ""))
+                    keyboardController?.hide()
+                }
             }
         ),
         cursorBrush = SolidColor(PackieDesignSystem.colors.purple),
