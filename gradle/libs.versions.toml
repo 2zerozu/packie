@@ -1,5 +1,6 @@
 [versions]
 agp = "8.1.2"
+google-services = "4.4.1"
 kotlin = "1.8.10"
 core-ktx = "1.12.0"
 junit = "4.13.2"
@@ -15,9 +16,11 @@ dagger-hilt = "2.48.1"
 dagger-hilt-navigation-compose = "1.0.0"
 kotlin-serialization-json = "1.6.1"
 play-services-ads = "23.0.0"
+secrets-gradle-plugin = "2.0.1"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
+google-services = { module = "com.google.gms:google-services", version.ref = "google-services" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-test-ext-junit = { group = "androidx.test.ext", name = "junit", version.ref = "androidx-test-ext-junit" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espresso-core" }
@@ -47,6 +50,7 @@ org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.re
 kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
 dagger-hilt = { id = "com.google.dagger.hilt.android", version.ref = "dagger-hilt" }
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin"}
-
+secrets-gradle-plugin = { id = "com.google.android.libraries.mapsplatform.secrets-gradle-plugin", version.ref ="secrets-gradle-plugin"}
+google-services = { id = "com.google.gms.google-services", version.ref ="google-services"}
 [bundles]
 

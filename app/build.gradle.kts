@@ -4,7 +4,8 @@ plugins {
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.dagger.hilt)
     alias(libs.plugins.kotlinx.serialization)
-    id("com.google.gms.google-services")
+    alias(libs.plugins.google.services)
+    alias(libs.plugins.secrets.gradle.plugin)
 }
 
 android {

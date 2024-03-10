@@ -1,8 +1,3 @@
-buildscript {
-    dependencies {
-        classpath(libs.google.services)
-    }
-}
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
     alias(libs.plugins.com.android.application) apply false
@@ -10,5 +5,7 @@ plugins {
     alias(libs.plugins.kotlin.kapt) apply false
     alias(libs.plugins.dagger.hilt) apply false
     alias(libs.plugins.kotlinx.serialization) apply false
+    alias(libs.plugins.google.services) apply false
+    alias(libs.plugins.secrets.gradle.plugin) apply false
 }
 true // Needed to make the Suppress annotation work for the plugins block
