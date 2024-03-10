@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.kapt)
     alias(libs.plugins.dagger.hilt)
     alias(libs.plugins.kotlinx.serialization)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -67,6 +68,7 @@ dependencies {
     implementation(libs.hilt.android)
     implementation(libs.hilt.plugin)
     implementation(libs.compose.hilt.navigation)
+    implementation(libs.play.services.ads)
     kapt(libs.hilt.kapt)
     implementation(libs.kotlin.serialization.json)
 
