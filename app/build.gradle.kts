@@ -23,6 +23,11 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+        resValue(
+            "string",
+            "AD_MOB_APP_ID",
+            project.findProperty("AD_MOB_APP_ID") as String? ?: "Default"
+        )
     }
 
     buildTypes {
@@ -80,8 +85,4 @@ dependencies {
     androidTestImplementation(libs.ui.test.junit4)
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
-}
-
-secrets {
-    propertiesFileName = "secrets.properties"
 }
