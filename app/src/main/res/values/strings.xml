@@ -34,7 +34,4 @@
 
     <!-- description -->
     <string name= "cross_fade_animation">cross fade animation</string>
-
-    <!-- admob -->
-    <string name="ad_unit_banner_id">ca-app-pub-3940256099942544/9214589741</string>
 </resources>

@@ -1,5 +1,6 @@
 package org.care.packie.ui.component.ads
 
+import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -16,6 +17,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
+import com.google.android.gms.ads.AdListener
 import com.google.android.gms.ads.AdRequest
 import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
@@ -23,13 +25,16 @@ import org.care.packie.R
 import org.care.packie.ui.theme.PackieTheme
 
 @Composable
+private fun rememberAdRequest() = remember {
+    AdRequest.Builder()
+        .build()
+}
+@Composable
 fun BannersAds(
     modifier: Modifier = Modifier,
-    adRequest: AdRequest = remember {
-        AdRequest.Builder().build()
-    }
+    adRequest: AdRequest = rememberAdRequest()
 ) {
-    val adId = stringResource(id = R.string.ad_unit_banner_id)
+    val adId = stringResource(id = R.string.AD_MOB_BANNER_UNIT_ID)
     if (LocalInspectionMode.current) {
         Text(
             modifier = modifier

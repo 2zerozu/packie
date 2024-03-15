@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.com.android.application)
     alias(libs.plugins.org.jetbrains.kotlin.android)
@@ -23,20 +25,40 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
-        resValue(
-            "string",
-            "AD_MOB_APP_ID",
-            project.findProperty("AD_MOB_APP_ID") as String? ?: "Default"
-        )
+    }
+
+    val properties = Properties()
+    properties.load(project.rootProject.file("local.properties").inputStream())
+
+    signingConfigs {
+        create("release") {
+            storeFile = file(properties["keystore_path"].toString())
+            storePassword = properties["store_password"].toString()
+            keyAlias = properties["key_alias"].toString()
+            keyPassword = properties["key_password"].toString()
+        }
     }
 
     buildTypes {
+        debug {
+            resValue(
+                "string",
+                "AD_MOB_BANNER_UNIT_ID",
+                "ca-app-pub-3940256099942544/9214589741"
+            )
+        }
         release {
+            resValue(
+                "string",
+                "AD_MOB_BANNER_UNIT_ID",
+                properties["AD_MOB_BANNER_UNIT_ID"] as String? ?: "Default"
+            )
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("release")
         }
     }
     compileOptions {
