@@ -32,6 +32,7 @@ import me.onebone.toolbar.rememberCollapsingToolbarScaffoldState
 import org.care.packie.R
 import org.care.packie.ui.DoneDialogType
 import org.care.packie.ui.TextFieldDialogType
+import org.care.packie.ui.component.ads.BannersAds
 import org.care.packie.ui.component.category.Category
 import org.care.packie.ui.component.category.SettingPopupMenu
 import org.care.packie.ui.component.common.PackieButton
@@ -42,7 +43,7 @@ import org.care.packie.ui.theme.PackieTheme
 
 // private const val MIN_CATEGORY_SIZE = 4
 private const val MIN_SPACER_SIZE = 4
-private const val MAX_SPACER_SIZE = 80
+private const val MAX_SPACER_SIZE = 70
 
 @Composable
 fun CategoryScreen(
@@ -150,7 +151,11 @@ fun CategoryScreen(
         ) {
             Text(text = stringResource(id = R.string.packing_category_button))
         }
-        Spacer(modifier = Modifier.size(44.dp))
+        Spacer(modifier = Modifier.size(4.dp))
+        BannersAds(
+            modifier = Modifier.fillMaxWidth()
+            .height(50.dp)
+        )
     }
 
     AnimatedVisibility(
