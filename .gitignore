@@ -223,7 +223,7 @@ obj/
 .idea/jarRepositories.xml
 .idea/navEditor.xml
 
-keystore
+app/keystore
 *.pepk
 
 # Legacy Eclipse project files
