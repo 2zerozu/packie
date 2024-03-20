@@ -8,6 +8,7 @@ plugins {
     alias(libs.plugins.kotlinx.serialization)
     alias(libs.plugins.google.services)
     alias(libs.plugins.secrets.gradle.plugin)
+    id("com.google.firebase.crashlytics")
 }
 
 android {
@@ -96,7 +97,12 @@ dependencies {
     implementation(libs.hilt.android)
     implementation(libs.hilt.plugin)
     implementation(libs.compose.hilt.navigation)
+
+
     implementation(libs.play.services.ads)
+    implementation(libs.firebase.crashlytics)
+
+
     kapt(libs.hilt.kapt)
     implementation(libs.kotlin.serialization.json)
 

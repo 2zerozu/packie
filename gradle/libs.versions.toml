@@ -17,6 +17,7 @@ dagger-hilt-navigation-compose = "1.0.0"
 kotlin-serialization-json = "1.6.1"
 play-services-ads = "23.0.0"
 secrets-gradle-plugin = "2.0.1"
+firebase-crashlytics = "18.6.2"
 
 [libraries]
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
@@ -43,6 +44,7 @@ hilt-plugin = { group = "com.google.dagger", name = "hilt-android-gradle-plugin"
 compose-hilt-navigation = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "dagger-hilt-navigation-compose" }
 kotlin-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlin-serialization-json"}
 play-services-ads = { group = "com.google.android.gms", name = "play-services-ads", version.ref = "play-services-ads" }
+firebase-crashlytics = { group = "com.google.firebase", name = "firebase-crashlytics", version.ref = "firebase-crashlytics" }
 
 [plugins]
 com-android-application = { id = "com.android.application", version.ref = "agp" }
